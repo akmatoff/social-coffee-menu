@@ -1,0 +1,25 @@
+---
+import { Image } from "astro:assets";
+import Logo from "../assets/logo.png";
+import MenuButton from "./MenuButton.astro";
+import CategoryCarousel from "./CategoryCarousel.astro";
+---
+
+<section
+  class="flex flex-col justify-between items-center min-h-screen bg-primary"
+>
+  <div class="space-y-16">
+    <div class="flex flex-col items-center space-y-8">
+      <Image src={Logo} alt="Logo" class="max-w-[80%]" />
+      <h1 class="text-white text-3xl tracking-widest">SOCIAL COFFEE</h1>
+    </div>
+
+    <div class="flex flex-col items-center space-y-6">
+      <MenuButton>МЕНЮ</MenuButton>
+      <MenuButton>БАР</MenuButton>
+      <MenuButton>ДЕТСКОЕ МЕНЮ</MenuButton>
+    </div>
+  </div>
+
+  <CategoryCarousel />
+</section>

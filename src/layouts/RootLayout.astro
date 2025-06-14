@@ -1,0 +1,38 @@
+---
+import HeaderSection from "../components/HeaderSection.astro";
+const primary = "#073723";
+---
+
+<style is:global define:vars={{ primary }}>
+  @tailwindcss base;
+  @tailwindcss components;
+  @tailwindcss utilities;
+
+  @font-face {
+    font-family: "FuturaBook", sans-serif;
+    src: url("/fonts/FuturaBook.ttf");
+  }
+
+  body {
+    font-family: FuturaBook, sans-serif;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+</style>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Social Coffee</title>
+  </head>
+  <body class="overflow-x-hidden">
+    <main class="lg:mx-[15%] xl:mx-[25%]">
+      <HeaderSection />
+      <slot />
+    </main>
+  </body>
+</html>

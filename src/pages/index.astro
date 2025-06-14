@@ -1,16 +1,17 @@
 ---
-
+import RootLayout from "../layouts/RootLayout.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<style>
+  .background-wrapper {
+    background-image: url("../assets/background-image.png");
+    background-size: auto 110%;
+    background-repeat: repeat-y;
+  }
+</style>
+
+<RootLayout>
+  <div class="background-wrapper bg-opacity-90">
+    <section class="min-h-screen"></section>
+  </div>
+</RootLayout>
