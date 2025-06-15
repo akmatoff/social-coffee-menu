@@ -3,6 +3,11 @@ interface Props {
   title: string;
   time?: string;
   color: string;
+  products: {
+    name: string;
+    price: string;
+    image: string;
+  }[];
 }
 
 const { title, time, color } = Astro.props;
@@ -18,4 +23,6 @@ const { title, time, color } = Astro.props;
 
     {time && <h2 class="text-black opacity-80">до {time}</h2>}
   </header>
+
+  <div></div>
 </section>
