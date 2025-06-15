@@ -1,17 +1,20 @@
 ---
+import Category from "../components/Category.astro";
 import RootLayout from "../layouts/RootLayout.astro";
 ---
 
 <style>
   .background-wrapper {
     background-image: url("../assets/background-image.png");
-    background-size: auto 110%;
+    background-size: 105%;
     background-repeat: repeat-y;
   }
 </style>
 
 <RootLayout>
   <div class="background-wrapper bg-opacity-90">
-    <section class="min-h-screen"></section>
+    <Category title="Фирменные завтраки" color="#FF6868" time="17:00" />
+    <Category title="Сладкие завтраки" color="#FF6868" time="17:00" />
+    <Category title="Салаты" color="#FF6868" time="17:00" />
   </div>
 </RootLayout>

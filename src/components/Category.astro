@@ -1,0 +1,21 @@
+---
+interface Props {
+  title: string;
+  time?: string;
+  color: string;
+}
+
+const { title, time, color } = Astro.props;
+---
+
+<section class="min-h-screen p-10">
+  <header class="flex items-center justify-between h-12">
+    <div class="h-full flex items-center space-x-4">
+      <div class="w-[4px] h-full rounded-lg" style={{ background: color }}>
+      </div>
+      <h1 class="text-[45px] font-semibold">{title}</h1>
+    </div>
+
+    {time && <h2 class="text-black opacity-80">до {time}</h2>}
+  </header>
+</section>
