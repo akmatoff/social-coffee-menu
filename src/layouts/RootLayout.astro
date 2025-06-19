@@ -1,20 +1,23 @@
 ---
 import HeaderSection from "../components/HeaderSection.astro";
-const primary = "#073723";
+const primary = "#C2813D";
+const secondary = "#073723";
 ---
 
-<style is:global define:vars={{ primary }}>
+<style is:global define:vars={{ primary, secondary }}>
   @tailwindcss base;
   @tailwindcss components;
   @tailwindcss utilities;
 
   @font-face {
-    font-family: "FuturaBook", sans-serif;
-    src: url("/fonts/FuturaBook.ttf");
+    font-family: "FuturaDemiC Regular", sans-serif;
+    src: url("/fonts/FuturaDemiC Regular.otf");
   }
 
   body {
-    font-family: FuturaBook, sans-serif;
+    font-family:
+      FuturaDemiC Regular,
+      sans-serif;
   }
 
   ::-webkit-scrollbar {
@@ -30,7 +33,7 @@ const primary = "#073723";
     <title>Social Coffee</title>
   </head>
   <body class="overflow-x-hidden">
-    <main class="lg:mx-[15%] xl:mx-[25%]">
+    <main>
       <HeaderSection />
       <slot />
     </main>

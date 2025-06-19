@@ -1,26 +1,30 @@
 ---
-import { Image } from "astro:assets";
-import Logo from "../assets/logo.png";
-import LogoText from "../assets/logo-text.svg";
 import MenuButton from "./MenuButton.astro";
 import CategoryCarousel from "./CategoryCarousel.astro";
 ---
 
-<section
-  class="flex flex-col justify-between items-center min-h-screen pt-20 space-y-16 bg-primary"
->
-  <div class="flex flex-col items-center justify-center space-y-20 h-full">
-    <div class="flex flex-col items-center space-y-12">
-      <Image src={Logo} alt="Logo" class="max-w-[80%]" />
-      <Image src={LogoText} alt="Social Coffee" />
+<style>
+  .background {
+    background: url("/src/assets/hero-image.png");
+    background-position: center;
+    background-size: 115%;
+  }
+</style>
+
+<section class="min-h-screen bg-secondary">
+  <div
+    class="flex flex-col justify-end space-y-12 min-h-screen lg:mx-[15%] xl:mx-[25%] background"
+  >
+    <div class="flex flex-col items-center justify-center space-y-20 h-full">
+      <div class="flex flex-col items-center space-y-12"></div>
+
+      <div class="flex flex-col items-center space-y-4">
+        <MenuButton>МЕНЮ</MenuButton>
+        <MenuButton>БАР</MenuButton>
+        <MenuButton>ДЕТСКОЕ МЕНЮ</MenuButton>
+      </div>
     </div>
 
-    <div class="flex flex-col items-center space-y-6">
-      <MenuButton>МЕНЮ</MenuButton>
-      <MenuButton>БАР</MenuButton>
-      <MenuButton>ДЕТСКОЕ МЕНЮ</MenuButton>
-    </div>
+    <CategoryCarousel />
   </div>
-
-  <CategoryCarousel />
 </section>
