@@ -1,17 +1,31 @@
 ---
 import HeaderSection from "../components/HeaderSection.astro";
 const primary = "#C2813D";
-const secondary = "#073723";
+const secondary = "#113728";
+const category = "#FF6868";
 ---
 
-<style is:global define:vars={{ primary, secondary }}>
+<style is:global define:vars={{ primary, secondary, category }}>
+  @import url(https://db.onlinewebfonts.com/c/06b73c421b7c269c7a0cb40df0daba21?family=FuturaDemiC);
+
   @tailwindcss base;
   @tailwindcss components;
   @tailwindcss utilities;
 
   @font-face {
-    font-family: "FuturaDemiC Regular", sans-serif;
-    src: url("/fonts/FuturaDemiC Regular.otf");
+    font-family: "FuturaDemiC";
+    src: url("https://db.onlinewebfonts.com/t/06b73c421b7c269c7a0cb40df0daba21.eot");
+    src:
+      url("https://db.onlinewebfonts.com/t/06b73c421b7c269c7a0cb40df0daba21.eot?#iefix")
+        format("embedded-opentype"),
+      url("https://db.onlinewebfonts.com/t/06b73c421b7c269c7a0cb40df0daba21.woff2")
+        format("woff2"),
+      url("https://db.onlinewebfonts.com/t/06b73c421b7c269c7a0cb40df0daba21.woff")
+        format("woff"),
+      url("https://db.onlinewebfonts.com/t/06b73c421b7c269c7a0cb40df0daba21.ttf")
+        format("truetype"),
+      url("https://db.onlinewebfonts.com/t/06b73c421b7c269c7a0cb40df0daba21.svg#FuturaDemiC")
+        format("svg");
   }
 
   body {
@@ -22,6 +36,12 @@ const secondary = "#073723";
 
   ::-webkit-scrollbar {
     display: none;
+  }
+
+  .background-wrapper {
+    background-image: url("../assets/background-image.png");
+    background-size: 105%;
+    background-repeat: repeat-y;
   }
 </style>
 <html lang="ru">

@@ -1,30 +1,8 @@
 ---
-import Category from "../components/Category.astro";
 import RootLayout from "../layouts/RootLayout.astro";
+import Menu from "../components/Menu";
 ---
 
-<style>
-  .background-wrapper {
-    background-image: url("../assets/background-image.png");
-    background-size: 105%;
-    background-repeat: repeat-y;
-  }
-</style>
-
 <RootLayout>
-  <div class="background-wrapper bg-opacity-90">
-    <Category
-      title="Фирменные завтраки"
-      color="#FF6868"
-      time="17:00"
-      products={[]}
-    />
-    <Category
-      title="Сладкие завтраки"
-      color="#FF6868"
-      time="17:00"
-      products={[]}
-    />
-    <Category title="Салаты" color="#FF6868" time="17:00" products={[]} />
-  </div>
+  <Menu client:load />
 </RootLayout>
