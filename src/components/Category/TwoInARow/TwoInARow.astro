@@ -1,0 +1,14 @@
+---
+import getMenuItems from "../../../api/getMenuItems";
+import type { Category } from "../../../types";
+
+interface Props {
+  category: Category;
+}
+
+const { category } = Astro.props;
+
+const menuItems = await getMenuItems({ category: category.id });
+---
+
+<div class="grid grid-cols-2"></div>;

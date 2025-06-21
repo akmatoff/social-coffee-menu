@@ -1,0 +1,17 @@
+---
+import getMenuItems from "../../../api/getMenuItems";
+import type { Category } from "../../../types";
+import MenuItem from "./MenuItem.astro";
+
+interface Props {
+  category: Category;
+}
+
+const { category } = Astro.props;
+
+const menuItems = await getMenuItems({ category: category.id });
+---
+
+<div class="space-y-8">
+  {menuItems.map((item) => <MenuItem menuItem={item} />)}
+</div>

@@ -1,11 +1,13 @@
 ---
-import App from "../components/App";
+import HeaderSection from "../components/HeaderSection.astro";
+
 const primary = "#C2813D";
 const secondary = "#113728";
 const category = "#FF6868";
+const muted = "#363434";
 ---
 
-<style is:global define:vars={{ primary, secondary, category }}>
+<style is:global define:vars={{ primary, secondary, category, muted }}>
   @import url(https://db.onlinewebfonts.com/c/06b73c421b7c269c7a0cb40df0daba21?family=FuturaDemiC);
 
   @tailwindcss base;
@@ -59,8 +61,9 @@ const category = "#FF6868";
     <title>Social Coffee</title>
   </head>
   <body class="overflow-x-hidden">
-    <App client:load>
+    <HeaderSection />
+    <main>
       <slot />
-    </App>
+    </main>
   </body>
 </html>

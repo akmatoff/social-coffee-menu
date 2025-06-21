@@ -1,0 +1,17 @@
+---
+import getMenuItems from "../../../api/getMenuItems";
+import type { Category } from "../../../types";
+import TextBasedMenuItem from "./TextBasedMenuItem.astro";
+
+interface Props {
+  category: Category;
+}
+
+const { category } = Astro.props;
+
+const menuItems = await getMenuItems({ category: category.id });
+---
+
+<div class="py-2">
+  {menuItems.map((item) => <TextBasedMenuItem item={item} />)}
+</div>

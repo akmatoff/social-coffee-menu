@@ -1,0 +1,18 @@
+---
+import getCategories from "../../api/getCategories";
+import CategoryButton from "./CategoryButton.astro";
+
+export const prerender = true;
+
+const categories = await getCategories();
+---
+
+<div
+  class="flex items-center w-full py-6 px-4 scrollbar-hidden space-x-4 overflow-x-auto"
+>
+  {
+    categories.map((category) => (
+      <CategoryButton key={category.id}>{category.name}</CategoryButton>
+    ))
+  }
+</div>

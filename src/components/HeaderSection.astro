@@ -1,0 +1,31 @@
+---
+import { MENU_OPTIONS } from "../constants";
+import CategoryCarousel from "./Category/CategoryCarousel.astro";
+import MenuButton from "./MenuButton";
+
+const { pathname } = Astro.url;
+---
+
+<section class="bg-secondary">
+  <div
+    class="bg-cover min-h-[70vh] md:bg-contain md:min-h-screen flex flex-col justify-end space-y-12 background"
+  >
+    <div
+      class="flex flex-col items-center justify-center space-y-20 h-full z-10"
+    >
+      <div class="flex flex-col items-center space-y-4">
+        {
+          MENU_OPTIONS.map((option) => (
+            <MenuButton isActive={option.link === pathname} link={option.link}>
+              {option.name}
+            </MenuButton>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="z-10">
+      <CategoryCarousel />
+    </div>
+  </div>
+</section>

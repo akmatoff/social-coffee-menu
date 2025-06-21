@@ -29,3 +29,18 @@ export type PaginatedResponse<T> = {
   previous: string;
   results: T[];
 };
+
+export type CategoriesParams = {
+  page?: number;
+  page_size?: number;
+  search?: string;
+};
+
+export type MenuItemsParams = {
+  available?: boolean;
+  category?: number;
+  ordering?: string;
+  page?: number;
+  page_size?: number;
+  search?: string;
+};

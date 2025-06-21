@@ -1,0 +1,41 @@
+---
+import { CategoryType, type Category } from "../../types";
+import DefaultCategory from "./Default/DefaultCategory.astro";
+import TextBased from "./TextBased/TextBased.astro";
+import TwoInARow from "./TwoInARow/TwoInARow.astro";
+
+interface Props {
+  category: Category;
+}
+
+const { category } = Astro.props;
+---
+
+<section class="p-10">
+  <header class="flex items-center justify-between h-12">
+    <div class="h-full flex items-center space-x-4">
+      <div class="w-[4px] h-full rounded-lg bg-category"></div>
+      <h1 class="text-[45px] font-semibold">{category.name}</h1>
+    </div>
+
+    <p>{category.description}</p>
+  </header>
+
+  <div class="py-10">
+    {
+      category.category_type === CategoryType.DEFAULT && (
+        <DefaultCategory category={category} />
+      )
+    }
+    {
+      category.category_type === CategoryType.TWO_IN_A_ROW && (
+        <TwoInARow category={category} />
+      )
+    }
+    {
+      category.category_type === CategoryType.TEXT_BASED && (
+        <TextBased category={category} />
+      )
+    }
+  </div>
+</section>

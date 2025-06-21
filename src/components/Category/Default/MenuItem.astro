@@ -1,0 +1,23 @@
+---
+import type { MenuItem } from "../../../types";
+import { formatNumber } from "../../../utils";
+interface Props {
+  menuItem: MenuItem;
+}
+
+const { menuItem } = Astro.props;
+
+const price = formatNumber(menuItem.price);
+---
+
+<article class="grid grid-cols-2 place-items-center gap-4">
+  <img src={menuItem.image} alt={menuItem.name} />
+
+  <div>
+    <h2 class="font-semibold text-[22px] md:text-[28px]">{menuItem.name}</h2>
+    <p class="text-muted">{menuItem.description}</p>
+
+    <div class="bg-category rounded-lg h-[2px] my-2 max-w-[136px]"></div>
+    <p class="text-[18px] md:text-[25px] font-semibold">{price}</p>
+  </div>
+</article>

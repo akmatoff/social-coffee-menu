@@ -1,0 +1,20 @@
+---
+import getCategories from "../api/getCategories";
+import Category from "./Category/Category.astro";
+
+export const prerender = true;
+
+const categories = await getCategories();
+---
+
+<style>
+  .category-background {
+    background-image: url("../assets/background-image.png");
+  }
+</style>
+
+<div class="min-h-screen w-full category-background">
+  <div class="lg:mx-[15%] xl:mx-[25%]">
+    {categories.map((category) => <Category category={category} />)}
+  </div>
+</div>;
