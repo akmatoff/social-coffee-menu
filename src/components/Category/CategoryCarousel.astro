@@ -12,7 +12,9 @@ const categories = await getCategories();
 >
   {
     categories.map((category) => (
-      <CategoryButton key={category.id}>{category.name}</CategoryButton>
+      <CategoryButton link={`#category-${category.id}`}>
+        {category.name}
+      </CategoryButton>
     ))
   }
 </div>

@@ -1,18 +1,23 @@
 ---
 import type { MenuItem } from "../../../types";
+import { formatNumber } from "../../../utils";
 
 interface Props {
   item: MenuItem;
 }
 
 const { item } = Astro.props;
+
+const price = formatNumber(item.price);
 ---
 
-<article class="flex items-center justify-between">
+<article class="flex items-center justify-between text-[18px] md:text-[25px]">
   <p>
     {item.name}
   </p>
-  <p>
-    {item.price}
+  <p class="flex items-center space-x-1">
+    <span></span>
+    <span class="block bg-category w-1 h-1 rounded-full"></span>
+    <span>{price}</span>
   </p>
 </article>

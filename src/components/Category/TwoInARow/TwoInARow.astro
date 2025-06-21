@@ -1,6 +1,7 @@
 ---
 import getMenuItems from "../../../api/getMenuItems";
-import type { Category } from "../../../types";
+import type { Category, MenuItem } from "../../../types";
+import TwoInArowMenuItem from "./TwoInArowMenuItem.astro";
 
 interface Props {
   category: Category;
@@ -8,7 +9,32 @@ interface Props {
 
 const { category } = Astro.props;
 
-const menuItems = await getMenuItems({ category: category.id });
+// const menuItems = await getMenuItems({ category: category.id });
+
+const menuItems: MenuItem[] = [
+  {
+    id: 1,
+    category: 1,
+    category_name: "category",
+    name: "Чудо Йудо",
+    description: "description",
+    price: "239",
+    available: true,
+    image: "image",
+  },
+  {
+    id: 1,
+    category: 1,
+    category_name: "category",
+    name: "Чудо Йудо",
+    description: "description",
+    price: "239",
+    available: true,
+    image: "image",
+  },
+];
 ---
 
-<div class="grid grid-cols-2"></div>;
+<div class="grid grid-cols-2 gap-4 place-content-center">
+  {menuItems.map((item) => <TwoInArowMenuItem item={item} />)}
+</div>

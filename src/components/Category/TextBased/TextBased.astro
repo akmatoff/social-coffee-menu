@@ -1,6 +1,6 @@
 ---
 import getMenuItems from "../../../api/getMenuItems";
-import type { Category } from "../../../types";
+import type { Category, MenuItem } from "../../../types";
 import TextBasedMenuItem from "./TextBasedMenuItem.astro";
 
 interface Props {
@@ -9,9 +9,32 @@ interface Props {
 
 const { category } = Astro.props;
 
-const menuItems = await getMenuItems({ category: category.id });
+// const menuItems = await getMenuItems({ category: category.id });
+
+const menuItems: MenuItem[] = [
+  {
+    id: 1,
+    category: 1,
+    category_name: "category",
+    name: "Чудо Йудо",
+    description: "description",
+    price: "239",
+    available: true,
+    image: "image",
+  },
+  {
+    id: 1,
+    category: 1,
+    category_name: "category",
+    name: "Чудо Йудо",
+    description: "description",
+    price: "239",
+    available: true,
+    image: "image",
+  },
+];
 ---
 
-<div class="py-2">
+<div class="space-y-1">
   {menuItems.map((item) => <TextBasedMenuItem item={item} />)}
 </div>
