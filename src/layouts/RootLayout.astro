@@ -1,5 +1,5 @@
 ---
-import HeaderSection from "../components/HeaderSection.astro";
+import App from "../components/App";
 const primary = "#C2813D";
 const secondary = "#113728";
 const category = "#FF6868";
@@ -43,6 +43,12 @@ const category = "#FF6868";
     background-size: 105%;
     background-repeat: repeat-y;
   }
+
+  .background {
+    background-image: url("../assets/hero-image-mobile.png");
+    background-repeat: no-repeat;
+    background-position: center;
+  }
 </style>
 <html lang="ru">
   <head>
@@ -53,9 +59,8 @@ const category = "#FF6868";
     <title>Social Coffee</title>
   </head>
   <body class="overflow-x-hidden">
-    <main>
-      <HeaderSection />
+    <App client:load>
       <slot />
-    </main>
+    </App>
   </body>
 </html>
