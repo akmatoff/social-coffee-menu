@@ -2,14 +2,17 @@ export enum CategoryType {
   DEFAULT = "DEFAULT",
   TWO_IN_A_ROW = "TWO_IN_A_ROW",
   TEXT_BASED = "TEXT_BASED",
+  MENU = "MENU",
 }
 
 export type Category = {
   id: number;
   name: string;
+  slug: string;
   description: string;
   items: string[];
   category_type: CategoryType;
+  subcategories: Category[];
 };
 
 export type MenuItem = {
@@ -19,8 +22,18 @@ export type MenuItem = {
   name: string;
   description: string;
   price: string;
+  weight: string;
+  volume: string;
+  tags: number[];
+  additions: MenuAddition[];
   available: boolean;
   image: string;
+};
+
+export type MenuAddition = {
+  id: number;
+  name: string;
+  price: string;
 };
 
 export type PaginatedResponse<T> = {

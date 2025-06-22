@@ -1,14 +1,14 @@
 export const MENU_OPTIONS = [
   {
     name: "МЕНЮ",
-    link: "/",
+    value: "menu",
   },
   {
     name: "ДЕТСКОЕ МЕНЮ",
-    link: "/kids-menu",
+    value: "kids-menu",
   },
   {
     name: "БАР",
-    link: "/bar",
+    value: "bar",
   },
 ];

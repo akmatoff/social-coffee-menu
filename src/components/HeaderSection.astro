@@ -4,8 +4,16 @@ import CategoryCarousel from "./Category/CategoryCarousel.astro";
 import MenuButton from "./MenuButton.astro";
 import Image from "astro/components/Image.astro";
 import Logo from "../assets/social-coffee-logo.png";
+import type { Category } from "../types";
 
-const { pathname } = Astro.url;
+const { searchParams } = Astro.url;
+
+interface Props {
+  categories: Category[];
+  menuOptions: Category[];
+}
+
+const { categories, menuOptions } = Astro.props;
 ---
 
 <section class="bg-secondary">
@@ -19,8 +27,11 @@ const { pathname } = Astro.url;
 
       <div class="flex flex-col items-center space-y-4">
         {
-          MENU_OPTIONS.map((option) => (
-            <MenuButton isActive={option.link === pathname} link={option.link}>
+          menuOptions.map((option) => (
+            <MenuButton
+              isActive={option.slug === searchParams.get("menu")}
+              link={`/?menu=${option.slug}`}
+            >
               {option.name}
             </MenuButton>
           ))
@@ -29,7 +40,7 @@ const { pathname } = Astro.url;
     </div>
 
     <div class="z-10">
-      <CategoryCarousel />
+      <CategoryCarousel categories={categories} />
     </div>
   </div>
 </section>
