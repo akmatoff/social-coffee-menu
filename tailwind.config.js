@@ -8,6 +8,7 @@ export default {
         secondary: "var(--secondary)",
         muted: "var(--muted)",
         category: "var(--category)",
+        categorySecondary: "var(--categorySecondary)",
       },
     },
   },

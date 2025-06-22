@@ -11,8 +11,8 @@ const { link, isActive } = Astro.props;
 
 <a
   href={link}
-  class={`text-primary text-[24px] md:text-[40px] uppercase font-thin cursor-pointer ${
-    isActive && "font-extrabold"
+  class={`text-primary text-[24px] md:text-[40px] uppercase cursor-pointer ${
+    isActive ? "font-extrabold" : "font-extralight"
   }`}
 >
   <slot />

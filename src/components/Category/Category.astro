@@ -1,6 +1,7 @@
 ---
 import { CategoryType, type Category } from "../../types";
 import DefaultCategory from "./Default/DefaultCategory.astro";
+import SubCategory from "./SubCategory.astro";
 import TextBased from "./TextBased/TextBased.astro";
 import TwoInARow from "./TwoInARow/TwoInARow.astro";
 
@@ -10,22 +11,32 @@ interface Props {
 
 const { category } = Astro.props;
 
-const hasSubCategories = category.subcategories.length > 0;
+const searchParams = Astro.url.searchParams;
 
-console.log(category);
+const isBar = searchParams.get("menu") === "bar";
+
+const hasSubCategories = category.subcategories.length > 0;
 ---
 
-<section class="p-10" id={`category-${category.id}`}>
+<section class="p-4 pt-10" id={`category-${category.id}`}>
   <header class="flex items-center justify-between h-12">
     <div class="h-full flex items-center space-x-4">
-      <div class="w-[4px] h-full rounded-lg bg-category"></div>
-      <h1 class="text-[25px] md:text-[45px] font-semibold">{category.name}</h1>
+      <div
+        class={`w-[4px] h-[24px] md:h-[48px] rounded-lg bg-category ${isBar && "bg-categorySecondary"}`}
+      >
+      </div>
+      <h1 class="text-[20px] md:text-[45px] font-semibold">{category.name}</h1>
     </div>
 
-    <p>{category.description}</p>
+    <p class="text-[9px] md:text-[14px]">{category.description}</p>
   </header>
 
-  <div class="py-10">
+  <div class="py-5 md:py-10">
+    {
+      hasSubCategories &&
+        category.subcategories.map((sc) => <SubCategory category={sc} />)
+    }
+
     {
       category.category_type === CategoryType.DEFAULT && (
         <DefaultCategory category={category} />

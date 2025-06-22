@@ -9,30 +9,7 @@ interface Props {
 
 const { category } = Astro.props;
 
-// const menuItems = await getMenuItems({ category: category.id });
-
-const menuItems: MenuItem[] = [
-  {
-    id: 1,
-    category: 1,
-    category_name: "category",
-    name: "Чудо Йудо",
-    description: "description",
-    price: "239",
-    available: true,
-    image: "image",
-  },
-  {
-    id: 1,
-    category: 1,
-    category_name: "category",
-    name: "Чудо Йудо",
-    description: "description",
-    price: "239",
-    available: true,
-    image: "image",
-  },
-];
+const menuItems = await getMenuItems({ category: category.id });
 ---
 
 <div class="space-y-1">

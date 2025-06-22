@@ -9,6 +9,7 @@ const primary = "#C2813D";
 const secondary = "#113728";
 const category = "#FF6868";
 const muted = "#363434";
+const categorySecondary = "#3F9573";
 
 const { searchParams } = Astro.url;
 
@@ -22,10 +23,13 @@ const activeMenu =
   categories.find((category) => category.slug === searchParams.get("menu")) ||
   menus?.[0];
 
-console.log(categories);
+console.log(activeMenu);
 ---
 
-<style is:global define:vars={{ primary, secondary, category, muted }}>
+<style
+  is:global
+  define:vars={{ primary, secondary, category, muted, categorySecondary }}
+>
   @import url(https://db.onlinewebfonts.com/c/06b73c421b7c269c7a0cb40df0daba21?family=FuturaDemiC);
 
   @tailwindcss base;

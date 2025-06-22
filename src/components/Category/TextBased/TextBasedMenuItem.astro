@@ -8,6 +8,10 @@ interface Props {
 
 const { item } = Astro.props;
 
+const searchParams = Astro.url.searchParams;
+
+const isBar = searchParams.get("menu") === "bar";
+
 const price = formatNumber(item.price);
 ---
 
@@ -15,9 +19,11 @@ const price = formatNumber(item.price);
   <p>
     {item.name}
   </p>
-  <p class="flex items-center space-x-1">
-    <span></span>
-    <span class="block bg-category w-1 h-1 rounded-full"></span>
+  <p class="flex items-center space-x-2">
+    <span>{item.volume}</span>
+    <span
+      class={`block bg-category w-2 h-2 rounded-full ${isBar && "bg-categorySecondary"}`}
+    ></span>
     <span>{price}</span>
   </p>
 </article>

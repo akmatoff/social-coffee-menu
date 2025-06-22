@@ -1,0 +1,47 @@
+---
+import { CategoryType, type Category } from "../../types";
+import DefaultCategory from "./Default/DefaultCategory.astro";
+import Sub from "./SubCategory.astro";
+import TextBased from "./TextBased/TextBased.astro";
+import TwoInARow from "./TwoInARow/TwoInARow.astro";
+
+interface Props {
+  category: Category;
+}
+
+const { category } = Astro.props;
+
+const hasSubcategories = category.subcategories.length > 0;
+---
+
+<div class="space-y-4">
+  <h2 class="text-[16px] md:text-[30px] font-semibold">{category.name}</h2>
+
+  {
+    hasSubcategories && (
+      <div class="space-y-8">
+        {category.subcategories.map((sc) => (
+          <Sub category={sc} />
+        ))}
+      </div>
+    )
+  }
+
+  {
+    !hasSubcategories && category.category_type === CategoryType.DEFAULT && (
+      <DefaultCategory category={category} />
+    )
+  }
+  {
+    !hasSubcategories &&
+      category.category_type === CategoryType.TWO_IN_A_ROW && (
+        <TwoInARow category={category} />
+      )
+  }
+
+  {
+    !hasSubcategories && category.category_type === CategoryType.TEXT_BASED && (
+      <TextBased category={category} />
+    )
+  }
+</div>
