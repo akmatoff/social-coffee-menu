@@ -1,6 +1,7 @@
 ---
 import type { MenuItem } from "../../../types";
 import { formatNumber } from "../../../utils";
+import VolumeAndPrice from "../../VolumeAndPrice.astro";
 
 interface Props {
   item: MenuItem;
@@ -8,14 +9,25 @@ interface Props {
 
 const { item } = Astro.props;
 
-const price = formatNumber(item.price);
+const searchParams = Astro.url.searchParams;
+
+const isBar = searchParams.get("menu") === "bar";
 ---
 
 <article class="flex flex-col items-center">
   <img src={item.image} alt={item.name} />
   <h2 class="mt-2 text-[20px] md:text-[28px] font-bold">{item.name}</h2>
+  <p class="text-[9px] md:text-[14px]">{item.description}</p>
 
-  <div class="bg-category rounded-lg h-[1px] w-full my-2 max-w-[136px]"></div>
+  <div
+    class={`bg-category rounded-lg h-[1px] w-full my-1 max-w-[136px] ${isBar && "bg-categorySecondary"}`}
+  >
+  </div>
 
-  <p class="text-[18px] md:text-[25px] font-semibold">{price}</p>
+  <VolumeAndPrice
+    volume={item.volume}
+    price={item.price}
+    isBar={isBar}
+    boldPrice
+  />
 </article>

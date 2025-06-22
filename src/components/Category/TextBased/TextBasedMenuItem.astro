@@ -1,6 +1,7 @@
 ---
 import type { MenuItem } from "../../../types";
 import { formatNumber } from "../../../utils";
+import VolumeAndPrice from "../../VolumeAndPrice.astro";
 
 interface Props {
   item: MenuItem;
@@ -19,11 +20,5 @@ const price = formatNumber(item.price);
   <p>
     {item.name}
   </p>
-  <p class="flex items-center space-x-2">
-    <span>{item.volume}</span>
-    <span
-      class={`block bg-category w-2 h-2 rounded-full ${isBar && "bg-categorySecondary"}`}
-    ></span>
-    <span>{price}</span>
-  </p>
+  <VolumeAndPrice volume={item.volume} price={item.price} isBar={isBar} />
 </article>
