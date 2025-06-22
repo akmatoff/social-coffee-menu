@@ -35,6 +35,7 @@ export type MenuAddition = {
   id: number;
   name: string;
   price: string;
+  weight: string;
 };
 
 export type PaginatedResponse<T> = {

@@ -27,7 +27,7 @@ const price = formatNumber(menuItem.price);
       </p>
 
       <div class="bg-category rounded-lg h-[1px] my-2 max-w-[136px]"></div>
-      <p class="text-[14px] md:text-[25px] font-semibold">{menuItem.price}</p>
+      <p class="text-[14px] md:text-[25px] font-semibold">{price}</p>
     </div>
   </article>
 
@@ -39,9 +39,16 @@ const price = formatNumber(menuItem.price);
           {menuItem.additions.map((addition) => (
             <div class="flex items-center justify-between">
               <p class="text-[16px] md:text-[25px]">{addition.name}</p>
-              <p class="text-[16px] md:text-[25px]">
-                {formatNumber(addition.price)}
-              </p>
+
+              <div class="flex items-center space-x-2">
+                {addition.weight && <span>{addition.weight}</span>}
+                {addition.weight && (
+                  <span class="block bg-category w-2 h-2 rounded-full" />
+                )}
+                <p class="text-[16px] md:text-[25px]">
+                  {formatNumber(addition.price)}
+                </p>
+              </div>
             </div>
           ))}
         </div>
