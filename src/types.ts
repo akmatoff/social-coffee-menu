@@ -13,6 +13,7 @@ export type Category = {
   items: string[];
   category_type: CategoryType;
   subcategories: Category[];
+  has_parent: boolean;
 };
 
 export type MenuItem = {

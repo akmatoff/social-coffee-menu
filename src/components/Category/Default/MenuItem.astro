@@ -10,14 +10,32 @@ const { menuItem } = Astro.props;
 const price = formatNumber(menuItem.price);
 ---
 
-<article class="grid grid-cols-2 place-items-center gap-4">
-  <img src={menuItem.image} alt={menuItem.name} />
+<div>
+  <article class="grid grid-cols-2 place-items-center gap-4">
+    <img src={menuItem.image} alt={menuItem.name} />
 
-  <div>
-    <h2 class="font-semibold text-[20px] md:text-[28px]">{menuItem.name}</h2>
-    <p class="text-muted">{menuItem.description}</p>
+    <div>
+      <h2 class="font-semibold text-[20px] md:text-[28px]">{menuItem.name}</h2>
+      <p class="text-muted">{menuItem.description}</p>
 
-    <div class="bg-category rounded-lg h-[1px] my-2 max-w-[136px]"></div>
-    <p class="text-[18px] md:text-[25px] font-semibold">{price}</p>
-  </div>
-</article>
+      <div class="bg-category rounded-lg h-[1px] my-2 max-w-[136px]"></div>
+      <p class="text-[18px] md:text-[25px] font-semibold">{menuItem.price}</p>
+    </div>
+  </article>
+
+  {
+    menuItem.additions.length > 0 && (
+      <div>
+        <h2 class="font-semibold text-[25px]">Дополнения</h2>
+        <div class="space-y-1">
+          {menuItem.additions.map((addition) => (
+            <div class="flex items-center justify-between">
+              <p>{addition.name}</p>
+              <p>{formatNumber(addition.price)}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+</div>

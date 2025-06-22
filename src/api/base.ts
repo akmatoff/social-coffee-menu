@@ -7,8 +7,6 @@ const api = axios.create({
 
 api.interceptors.request.use((config) => {
   if (typeof window === "undefined") {
-    // Server-side: add Accept-Language from global context if available
-    // You must manually pass language to the axios call in SSR
   } else {
     const language = navigator.language || "ru";
     config.headers["Accept-Language"] = language;

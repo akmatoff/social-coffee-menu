@@ -20,8 +20,9 @@ const menus = categories.filter(
 
 const activeMenu =
   categories.find((category) => category.slug === searchParams.get("menu")) ||
-  menus?.[0] ||
-  categories[0];
+  menus?.[0];
+
+console.log(categories);
 ---
 
 <style is:global define:vars={{ primary, secondary, category, muted }}>

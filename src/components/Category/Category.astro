@@ -11,6 +11,8 @@ interface Props {
 const { category } = Astro.props;
 
 const hasSubCategories = category.subcategories.length > 0;
+
+console.log(category);
 ---
 
 <section class="p-10" id={`category-${category.id}`}>
