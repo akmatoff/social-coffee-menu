@@ -9,7 +9,12 @@ interface Props {
 
 const { category } = Astro.props;
 
-const menuItems = await getMenuItems({ category: category.id });
+const { searchParams } = Astro.url;
+
+const menuItems = await getMenuItems(
+  { category: category.id },
+  searchParams.get("lang") ?? "ru"
+);
 ---
 
 <div class="space-y-1">

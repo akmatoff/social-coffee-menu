@@ -11,9 +11,9 @@ interface Props {
 
 const { category } = Astro.props;
 
-const searchParams = Astro.url.searchParams;
+const { menu } = Astro.params;
 
-const isBar = searchParams.get("menu") === "bar";
+const isBar = menu === "bar";
 
 const hasSubCategories = category.subcategories.length > 0;
 ---

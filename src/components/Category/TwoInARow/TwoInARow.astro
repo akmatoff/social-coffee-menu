@@ -9,9 +9,14 @@ interface Props {
 
 const { category } = Astro.props;
 
-const menuItems = await getMenuItems({ category: category.id });
+const { searchParams } = Astro.url;
+
+const menuItems = await getMenuItems(
+  { category: category.id },
+  searchParams.get("lang") ?? "ru"
+);
 ---
 
-<div class="grid grid-cols-2 gap-4 place-content-center">
+<div class="grid grid-cols-2 gap-y-4 gap-x-8 md:gap-4 place-content-center">
   {menuItems.map((item) => <TwoInArowMenuItem item={item} />)}
 </div>
