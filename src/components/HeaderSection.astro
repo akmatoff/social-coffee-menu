@@ -25,17 +25,17 @@ const { menu } = Astro.params;
     >
       <a
         href={`/${menu}?lang=ru`}
-        class={`inline-block p-2 border-primary rounded-lg ${searchParams.get("lang") === "ru" && "border"} ${searchParams.get("lang") === null && "border"}`}
+        class={`inline-block p-2 text-xs md:text-base border-primary rounded-lg ${searchParams.get("lang") === "ru" && "border"} ${searchParams.get("lang") === null && "border"}`}
         >RU</a
       >
       <a
         href={`/${menu}?lang=ky`}
-        class={`inline-block p-2 border-primary rounded-lg ${searchParams.get("lang") === "ky" && "border"}`}
+        class={`inline-block p-2 text-xs md:text-base border-primary rounded-lg ${searchParams.get("lang") === "ky" && "border"}`}
         >KY</a
       >
       <a
         href={`/${menu}?lang=en`}
-        class={`inline-block p-2 border-primary rounded-lg ${searchParams.get("lang") === "en" && "border"}`}
+        class={`inline-block p-2 text-xs md:text-base border-primary rounded-lg ${searchParams.get("lang") === "en" && "border"}`}
         >EN</a
       >
     </div>
