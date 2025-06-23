@@ -41,7 +41,11 @@ const price = formatNumber(menuItem.price);
               <p class="text-[16px] md:text-[25px]">{addition.name}</p>
 
               <div class="flex items-center space-x-2">
-                {addition.weight && <span>{addition.weight}</span>}
+                {addition.weight && (
+                  <span class="text-[16px] md:text-[25px]">
+                    {addition.weight}
+                  </span>
+                )}
                 {addition.weight && (
                   <span class="block bg-category w-2 h-2 rounded-full" />
                 )}

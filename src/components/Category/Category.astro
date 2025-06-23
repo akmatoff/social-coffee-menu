@@ -31,26 +31,28 @@ const hasSubCategories = category.subcategories.length > 0;
     <p class="text-[9px] md:text-[14px]">{category.description}</p>
   </header>
 
-  <div class="py-5 md:py-10">
+  <div class="py-5 md:py-10 space-y-10">
     {
       hasSubCategories &&
-        category.subcategories.map((sc) => <SubCategory category={sc} />)
+        category.subcategories.map((sc) => (
+          <SubCategory category={sc} client:visible />
+        ))
     }
 
     {
       category.category_type === CategoryType.DEFAULT && (
-        <DefaultCategory category={category} />
+        <DefaultCategory category={category} client:visible />
       )
     }
     {
       category.category_type === CategoryType.TWO_IN_A_ROW && (
-        <TwoInARow category={category} />
+        <TwoInARow category={category} client:visible />
       )
     }
 
     {
       category.category_type === CategoryType.TEXT_BASED && (
-        <TextBased category={category} />
+        <TextBased category={category} client:visible />
       )
     }
   </div>
