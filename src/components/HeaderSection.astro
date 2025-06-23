@@ -18,10 +18,10 @@ const { menu } = Astro.params;
 
 <section class="bg-secondary">
   <div
-    class="bg-cover min-h-[70vh] xl:min-h-screen flex flex-col justify-end space-y-12 background"
+    class="bg-cover min-h-[70vh] xl:min-h-screen flex flex-col justify-end space-y-12 background relative"
   >
     <div
-      class="absolute top-4 right-4 md:top-8 md:right-8 text-primary space-x-4"
+      class="absolute z-20 top-4 right-4 md:top-8 md:right-8 text-primary space-x-4"
     >
       <a
         href={`/${menu}?lang=ru`}
@@ -39,9 +39,7 @@ const { menu } = Astro.params;
         >EN</a
       >
     </div>
-    <div
-      class="flex flex-col items-center justify-center space-y-20 h-full z-10"
-    >
+    <div class="flex flex-col items-center justify-center space-y-20 h-full">
       <Image src={Logo} alt="logo" class="scale-75 md:scale-90" />
 
       <div class="flex flex-col items-center space-y-4">
