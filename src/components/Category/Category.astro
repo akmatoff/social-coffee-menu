@@ -34,25 +34,23 @@ const hasSubCategories = category.subcategories.length > 0;
   <div class="py-5 md:py-10 space-y-10">
     {
       hasSubCategories &&
-        category.subcategories.map((sc) => (
-          <SubCategory category={sc} client:visible />
-        ))
+        category.subcategories.map((sc) => <SubCategory category={sc} />)
     }
 
     {
       category.category_type === CategoryType.DEFAULT && (
-        <DefaultCategory category={category} client:visible />
+        <DefaultCategory category={category} />
       )
     }
     {
       category.category_type === CategoryType.TWO_IN_A_ROW && (
-        <TwoInARow category={category} client:visible />
+        <TwoInARow category={category} />
       )
     }
 
     {
       category.category_type === CategoryType.TEXT_BASED && (
-        <TextBased category={category} client:visible />
+        <TextBased category={category} />
       )
     }
   </div>

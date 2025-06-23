@@ -17,10 +17,6 @@ const { categories } = Astro.props;
 
 <div class="min-h-screen w-full category-background">
   <div class="2xl:mx-[25%]">
-    {
-      categories.map((category) => (
-        <Category category={category} client:visible />
-      ))
-    }
+    {categories.map((category) => <Category category={category} />)}
   </div>
 </div>
