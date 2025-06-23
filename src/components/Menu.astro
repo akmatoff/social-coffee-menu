@@ -16,7 +16,7 @@ const { categories } = Astro.props;
 </style>
 
 <div class="min-h-screen w-full category-background">
-  <div class="lg:mx-[15%] xl:mx-[25%]">
+  <div class="xl:mx-[25%]">
     {categories.map((category) => <Category category={category} />)}
   </div>
 </div>;
