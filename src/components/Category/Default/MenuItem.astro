@@ -11,18 +11,16 @@ const price = formatNumber(menuItem.price);
 ---
 
 <div>
-  <article
-    class="grid grid-cols-2 place-content-center place-items-center gap-2"
-  >
+  <article class="flex items-center space-x-2">
     <img
       src={menuItem.image}
       alt={menuItem.name}
-      class="object-contain object-center w-full h-full"
+      class="object-contain object-center scale-[106%] xl:scale-[102%] w-full h-full flex-[1_1_20%]"
     />
 
-    <div class="justify-self-start">
+    <div class="justify-self-start flex-[1_1_0%]">
       <h2 class="font-semibold text-[16px] md:text-[28px]">{menuItem.name}</h2>
-      <p class="text-muted text-[12px] md:text-[16px]">
+      <p class="text-muted text-[14px] md:text-[20px]">
         {menuItem.description}
       </p>
 

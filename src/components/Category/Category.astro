@@ -25,13 +25,21 @@ const hasSubCategories = category.subcategories.length > 0;
         class={`w-[4px] h-[24px] md:h-[48px] rounded-lg bg-category ${isBar && "bg-categorySecondary"}`}
       >
       </div>
-      <h1 class="text-[20px] md:text-[45px] font-semibold">{category.name}</h1>
+      <h1 class="text-[20px]/[20px] md:text-[45px]/[40px] font-semibold">
+        {category.name}
+      </h1>
     </div>
 
     <p class="text-[9px] md:text-[14px]">{category.description}</p>
   </header>
 
-  <div class="py-5 md:py-10 space-y-10">
+  <div class="py-2 md:py-8 space-y-8">
+    {
+      category.image && (
+        <img src={category.image} alt={category.slug} class="w-full" />
+      )
+    }
+
     {
       hasSubCategories &&
         category.subcategories.map((sc) => <SubCategory category={sc} />)

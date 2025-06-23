@@ -1,9 +1,25 @@
 export function formatNumber(price: string | number): string {
-  const value = typeof price === "string" ? parseFloat(price) : price;
+  const format = (val: string | number) => {
+    const num = typeof val === "string" ? parseFloat(val) : val;
+    return isNaN(num)
+      ? val.toString()
+      : `${new Intl.NumberFormat("ru-RU").format(num)} с`;
+  };
 
-  if (isNaN(value)) {
-    return price.toString();
+  if (typeof price === "number") {
+    return format(price);
   }
 
-  return `${new Intl.NumberFormat("ru-RU").format(value)} с`;
+  // Handle ranges like "390/490 c" or "390 c/490 c"
+  const rangeMatch = price.match(
+    /([\d.]+)\s*(?:с|c)?\s*\/\s*([\d.]+)\s*(?:с|c)?/i
+  );
+
+  if (rangeMatch) {
+    const [_, part1, part2] = rangeMatch;
+    return `${part1.replace("c", "")}/${format(part2)}`;
+  }
+
+  // Normal single price
+  return format(price);
 }

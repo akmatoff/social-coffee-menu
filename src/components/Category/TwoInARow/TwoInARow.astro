@@ -15,8 +15,17 @@ const menuItems = await getMenuItems(
   { category: category.id },
   searchParams.get("lang") ?? "ru"
 );
+
+const isOdd = menuItems.length % 2 !== 0;
+const lastIndex = menuItems.length - 1;
 ---
 
 <div class="grid grid-cols-2 gap-y-4 gap-x-8 md:gap-4 place-content-center">
-  {menuItems.map((item) => <TwoInArowMenuItem item={item} />)}
+  {
+    menuItems.map((item, index) => {
+      const isLastAndOdd = isOdd && index === lastIndex;
+
+      return <TwoInArowMenuItem item={item} shouldBeCentered={isLastAndOdd} />;
+    })
+  }
 </div>

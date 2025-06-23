@@ -12,9 +12,13 @@ const { volume, price, isBar, boldPrice } = Astro.props;
 ---
 
 <p class="flex items-center space-x-2">
-  <span>{volume}</span>
-  <span
-    class={`block bg-category w-2 h-2 rounded-full ${isBar && "bg-categorySecondary"}`}
-  ></span>
+  {volume && <span>{volume}</span>}
+  {
+    volume && (
+      <span
+        class={`block bg-category w-[6px] h-[6px] md:w-2 md:h-2 rounded-full ${isBar && "bg-categorySecondary"}`}
+      />
+    )
+  }
   <span class={boldPrice ? "font-semibold" : ""}>{formatNumber(price)}</span>
 </p>

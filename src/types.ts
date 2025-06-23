@@ -14,6 +14,7 @@ export type Category = {
   category_type: CategoryType;
   subcategories: Category[];
   has_parent: boolean;
+  image?: string;
 };
 
 export type MenuItem = {

@@ -12,13 +12,14 @@ const { item } = Astro.props;
 const { menu } = Astro.params;
 
 const isBar = menu === "bar";
-
-const price = formatNumber(item.price);
 ---
 
 <article class="flex items-center justify-between text-[18px] md:text-[25px]">
-  <p>
-    {item.name}
-  </p>
+  <div>
+    <p>
+      {item.name}
+    </p>
+    <p class="text-muted text-[12px] md:text-[18px]">{item.description}</p>
+  </div>
   <VolumeAndPrice volume={item.volume} price={item.price} isBar={isBar} />
 </article>
