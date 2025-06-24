@@ -6,8 +6,6 @@ export default async function getMenuItems(
   params?: MenuItemsParams,
   lang?: string
 ) {
-  console.log(lang);
-
   return api
     .get<PaginatedResponse<MenuItem>>(ENDPOINTS.MENU_ITEMS, {
       params: { ...params, page_size: 99 },

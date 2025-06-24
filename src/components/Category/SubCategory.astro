@@ -48,6 +48,7 @@ const hasSubcategories = category.subcategories.length > 0;
           category={category}
           menu={menu}
           lang={searchParams.get("lang") || "ru"}
+          client:visible
         />
       )
   }
@@ -58,6 +59,7 @@ const hasSubcategories = category.subcategories.length > 0;
         category={category}
         lang={searchParams.get("lang") || "ru"}
         menu={menu}
+        client:visible
       />
     )
   }
