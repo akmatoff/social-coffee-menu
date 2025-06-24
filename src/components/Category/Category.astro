@@ -1,9 +1,9 @@
 ---
 import { CategoryType, type Category } from "../../types";
-import DefaultCategory from "./Default/DefaultCategory.astro";
+import DefaultCategory from "./Default/DefaultCategory.tsx";
 import SubCategory from "./SubCategory.astro";
-import TextBased from "./TextBased/TextBased.astro";
-import TwoInARow from "./TwoInARow/TwoInARow.astro";
+import TextBased from "./TextBased/TextBased.tsx";
+import TwoInARow from "./TwoInARow/TwoInARow";
 
 interface Props {
   category: Category;
@@ -12,6 +12,8 @@ interface Props {
 const { category } = Astro.props;
 
 const { menu } = Astro.params;
+
+const searchParams = Astro.url.searchParams;
 
 const isBar = menu === "bar";
 
@@ -47,18 +49,32 @@ const hasSubCategories = category.subcategories.length > 0;
 
     {
       category.category_type === CategoryType.DEFAULT && (
-        <DefaultCategory category={category} />
+        <DefaultCategory
+          category={category}
+          lang={searchParams.get("lang") || "ru"}
+          client:visible
+        />
       )
     }
     {
       category.category_type === CategoryType.TWO_IN_A_ROW && (
-        <TwoInARow category={category} />
+        <TwoInARow
+          category={category}
+          menu={menu}
+          lang={searchParams.get("lang") || "ru"}
+          client:visible
+        />
       )
     }
 
     {
       category.category_type === CategoryType.TEXT_BASED && (
-        <TextBased category={category} />
+        <TextBased
+          category={category}
+          menu={menu}
+          lang={searchParams.get("lang") || "ru"}
+          client:visible
+        />
       )
     }
   </div>
