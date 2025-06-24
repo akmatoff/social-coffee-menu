@@ -21,5 +21,9 @@ const isBar = menu === "bar";
     </p>
     <p class="text-muted text-[12px] md:text-[18px]">{item.description}</p>
   </div>
-  <VolumeAndPrice volume={item.volume} price={item.price} isBar={isBar} />
+  <VolumeAndPrice
+    volume={item.volume ?? item.weight}
+    price={item.price}
+    isBar={isBar}
+  />
 </article>

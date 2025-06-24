@@ -25,6 +25,8 @@ const menus = categories.filter(
 
 const activeMenu =
   categories.find((category) => category.slug === menu) || menus?.[0];
+
+console.log(activeMenu.subcategories);
 ---
 
 <style
@@ -61,6 +63,7 @@ const activeMenu =
     font-family:
       FuturaDemiC Regular,
       sans-serif;
+    overflow-x: hidden;
   }
 
   ::-webkit-scrollbar {

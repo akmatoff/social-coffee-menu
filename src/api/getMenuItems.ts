@@ -8,7 +8,7 @@ export default async function getMenuItems(
 ) {
   return api
     .get<PaginatedResponse<MenuItem>>(ENDPOINTS.MENU_ITEMS, {
-      params,
+      params: { ...params, page_size: 99 },
       headers: {
         "Accept-Language": lang || "ru",
       },
