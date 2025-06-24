@@ -141,9 +141,12 @@ const activeMenu =
     <meta name="description" content="Меню Social Coffee" />
     <title>Social Coffee</title>
   </head>
-  <body class="overflow-x-hidden">
-    <HeaderSection categories={activeMenu.subcategories} menuOptions={menus} />
+  <body>
     <main>
+      <HeaderSection
+        categories={activeMenu.subcategories}
+        menuOptions={menus}
+      />
       <MenuComponent categories={activeMenu.subcategories} />
     </main>
   </body>

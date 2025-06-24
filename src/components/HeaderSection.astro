@@ -18,29 +18,30 @@ const { categories, menuOptions } = Astro.props;
 const { menu } = Astro.params;
 ---
 
-<section class="bg-secondary">
+<section class="bg-secondary h-auto">
   <div
-    class="bg-cover min-h-[70vh] xl:min-h-screen flex flex-col justify-end space-y-12 background relative"
+    class="absolute z-20 top-4 right-4 md:top-8 md:right-8 text-primary space-x-4"
   >
-    <div
-      class="absolute z-20 top-4 right-4 md:top-8 md:right-8 text-primary space-x-4"
+    <a
+      href={`/${menu}?lang=ru`}
+      class={`inline-block p-2 text-xs md:text-base border-primary rounded-lg ${searchParams.get("lang") === "ru" && "border"} ${searchParams.get("lang") === null && "border"}`}
+      >RU</a
     >
-      <a
-        href={`/${menu}?lang=ru`}
-        class={`inline-block p-2 text-xs md:text-base border-primary rounded-lg ${searchParams.get("lang") === "ru" && "border"} ${searchParams.get("lang") === null && "border"}`}
-        >RU</a
-      >
-      <a
-        href={`/${menu}?lang=ky`}
-        class={`inline-block p-2 text-xs md:text-base border-primary rounded-lg ${searchParams.get("lang") === "ky" && "border"}`}
-        >KY</a
-      >
-      <a
-        href={`/${menu}?lang=en`}
-        class={`inline-block p-2 text-xs md:text-base border-primary rounded-lg ${searchParams.get("lang") === "en" && "border"}`}
-        >EN</a
-      >
-    </div>
+    <a
+      href={`/${menu}?lang=ky`}
+      class={`inline-block p-2 text-xs md:text-base border-primary rounded-lg ${searchParams.get("lang") === "ky" && "border"}`}
+      >KY</a
+    >
+    <a
+      href={`/${menu}?lang=en`}
+      class={`inline-block p-2 text-xs md:text-base border-primary rounded-lg ${searchParams.get("lang") === "en" && "border"}`}
+      >EN</a
+    >
+  </div>
+
+  <div
+    class="bg-cover min-h-[70vh] xl:min-h-screen flex flex-col justify-center space-y-12 background"
+  >
     <div class="flex flex-col items-center justify-center space-y-20 h-full">
       <Image src={Logo} alt="logo" class="scale-75 md:scale-90" />
 
@@ -57,9 +58,7 @@ const { menu } = Astro.params;
         }
       </div>
     </div>
-
-    <div class="z-10">
-      <CategoryCarousel categories={categories} />
-    </div>
   </div>
 </section>
+
+<CategoryCarousel categories={categories} />
