@@ -12,7 +12,7 @@ const { volume, price, isBar, boldPrice } = Astro.props;
 ---
 
 <p class="flex items-center space-x-2">
-  {volume && <span>{volume}</span>}
+  {volume && <span class="text-[16px] md:text-[25px]">{volume}</span>}
   {
     volume && (
       <span
@@ -20,5 +20,7 @@ const { volume, price, isBar, boldPrice } = Astro.props;
       />
     )
   }
-  <span class={boldPrice ? "font-semibold" : ""}>{formatNumber(price)}</span>
+  <span class={`${boldPrice ? "font-semibold" : ""} text-[16px] md:text-[25px]`}
+    >{formatNumber(price)}</span
+  >
 </p>

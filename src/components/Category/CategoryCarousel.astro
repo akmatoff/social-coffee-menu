@@ -14,7 +14,7 @@ const { categories } = Astro.props;
 >
   {
     categories.map((category) => (
-      <CategoryButton link={`#category-${category.id}`}>
+      <CategoryButton link={`#category-${category.id}`} client:load>
         {category.name}
       </CategoryButton>
     ))
