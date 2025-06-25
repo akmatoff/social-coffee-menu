@@ -65,7 +65,23 @@ const activeMenu =
   }
 
   ::-webkit-scrollbar {
-    display: none;
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #fff7ed;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #f3c48a;
+    border-radius: 8px;
+  }
+
+  .scrollbar-hidden {
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   .background-wrapper {

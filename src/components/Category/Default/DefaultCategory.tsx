@@ -25,12 +25,14 @@ export default function DefaultCategory({ category, lang }: Props) {
   }, []);
 
   return (
-    <div className="grid xl:grid-cols-2 gap-4 py-8">
+    <>
       {isLoading && <Loader />}
-      {!isLoading &&
-        menuItems.map((item) => (
-          <MenuItemComponent key={item.id} menuItem={item} />
-        ))}
-    </div>
+      <div className="grid xl:grid-cols-2 gap-4 py-8">
+        {!isLoading &&
+          menuItems.map((item) => (
+            <MenuItemComponent key={item.id} menuItem={item} />
+          ))}
+      </div>
+    </>
   );
 }
