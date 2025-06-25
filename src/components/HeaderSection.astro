@@ -4,13 +4,14 @@ import MenuButton from "./MenuButton.astro";
 import Image from "astro/components/Image.astro";
 import Logo from "../assets/social-coffee-logo.png";
 import type { Category } from "../types";
+import classNames from "classnames";
 
 export const prerender = true;
 
 const { searchParams } = Astro.url;
 
 interface Props {
-  categories: Category[];
+  categories?: Category[];
   menuOptions: Category[];
 }
 
@@ -40,7 +41,12 @@ const { menu } = Astro.params;
   </div>
 
   <div
-    class="bg-cover min-h-[70vh] xl:min-h-screen flex flex-col justify-center space-y-12 background"
+    class={classNames(
+      "bg-cover min-h-[70vh] flex flex-col justify-center space-y-12 background",
+      categories && categories.length > 0
+        ? "xl:min-h-[91.7dvh]"
+        : "xl:min-h-[100dvh]"
+    )}
   >
     <div class="flex flex-col items-center justify-center space-y-20 h-full">
       <Image src={Logo} alt="logo" class="scale-75 md:scale-90" />
@@ -61,4 +67,4 @@ const { menu } = Astro.params;
   </div>
 </section>
 
-<CategoryCarousel categories={categories} />
+{categories && <CategoryCarousel categories={categories} />}

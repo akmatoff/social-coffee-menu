@@ -1,23 +1,16 @@
 ---
+import RootLayout from "../layouts/RootLayout.astro";
+import MenuComponent from "../components/Menu.astro";
 import getCategories from "../api/getCategories";
 import { CategoryType } from "../types";
 
-import HeaderSection from "../components/HeaderSection.astro";
-import MenuComponent from "../components/Menu.astro";
-
-const primary = "#C2813D";
-const secondary = "#113728";
-const category = "#FF6868";
-const muted = "#363434";
-const categorySecondary = "#3F9573";
-
-const { searchParams } = Astro.url;
-
-const { menu } = Astro.params;
+const searchParams = Astro.url.searchParams;
 
 const language = searchParams.get("lang") || "ru";
 
 const categories = await getCategories(language);
+
+const { menu } = Astro.params;
 
 const menus = categories.filter(
   (category) => category.category_type === CategoryType.MENU
@@ -27,143 +20,6 @@ const activeMenu =
   categories.find((category) => category.slug === menu) || menus?.[0];
 ---
 
-<style
-  is:global
-  define:vars={{ primary, secondary, category, muted, categorySecondary }}
->
-  @import url(https://db.onlinewebfonts.com/c/06b73c421b7c269c7a0cb40df0daba21?family=FuturaDemiC);
-
-  @tailwindcss base;
-  @tailwindcss components;
-  @tailwindcss utilities;
-
-  @font-face {
-    font-family: "FuturaDemiC";
-    src: url("https://db.onlinewebfonts.com/t/06b73c421b7c269c7a0cb40df0daba21.eot");
-    src:
-      url("https://db.onlinewebfonts.com/t/06b73c421b7c269c7a0cb40df0daba21.eot?#iefix")
-        format("embedded-opentype"),
-      url("https://db.onlinewebfonts.com/t/06b73c421b7c269c7a0cb40df0daba21.woff2")
-        format("woff2"),
-      url("https://db.onlinewebfonts.com/t/06b73c421b7c269c7a0cb40df0daba21.woff")
-        format("woff"),
-      url("https://db.onlinewebfonts.com/t/06b73c421b7c269c7a0cb40df0daba21.ttf")
-        format("truetype"),
-      url("https://db.onlinewebfonts.com/t/06b73c421b7c269c7a0cb40df0daba21.svg#FuturaDemiC")
-        format("svg");
-  }
-
-  html {
-    scroll-behavior: smooth;
-  }
-
-  body {
-    font-family:
-      FuturaDemiC Regular,
-      sans-serif;
-    overflow-x: hidden;
-  }
-
-  ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: #fff7ed;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: #f3c48a;
-    border-radius: 8px;
-  }
-
-  .scrollbar-hidden {
-    &::-webkit-scrollbar {
-      display: none;
-    }
-  }
-
-  .background-wrapper {
-    background-image: url("../assets/background-image.png");
-    background-size: 105%;
-    background-repeat: repeat-y;
-  }
-
-  .background {
-    background-image: url("../assets/hero-background.png");
-    background-repeat: no-repeat;
-    background-position: center;
-  }
-  .loader {
-    width: 15px;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    clip-path: inset(-45px);
-    box-shadow:
-      -60px 15px,
-      -60px 15px,
-      -60px 15px;
-    transform: translateY(-15px);
-    animation: l19 1s infinite linear;
-  }
-  @keyframes l19 {
-    16.67% {
-      box-shadow:
-        -60px 15px,
-        -60px 15px,
-        19px 15px;
-    }
-    33.33% {
-      box-shadow:
-        -60px 15px,
-        0px 15px,
-        19px 15px;
-    }
-    40%,
-    60% {
-      box-shadow:
-        -19px 15px,
-        0px 15px,
-        19px 15px;
-    }
-    66.67% {
-      box-shadow:
-        -19px 15px,
-        0px 15px,
-        60px 15px;
-    }
-    83.33% {
-      box-shadow:
-        -19px 15px,
-        60px 15px,
-        60px 15px;
-    }
-    100% {
-      box-shadow:
-        60px 15px,
-        60px 15px,
-        60px 15px;
-    }
-  }
-</style>
-<html lang="ru">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <meta name="color-scheme" content="light" />
-    <meta name="description" content="Меню Social Coffee" />
-    <title>Social Coffee</title>
-  </head>
-  <body>
-    <main>
-      <HeaderSection
-        categories={activeMenu.subcategories}
-        menuOptions={menus}
-      />
-      <MenuComponent categories={activeMenu.subcategories} />
-    </main>
-  </body>
-</html>
+<RootLayout categories={categories}>
+  <MenuComponent categories={activeMenu.subcategories} />
+</RootLayout>
