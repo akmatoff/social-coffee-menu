@@ -5,6 +5,8 @@ import Image from "astro/components/Image.astro";
 import Logo from "../assets/social-coffee-logo.png";
 import type { Category } from "../types";
 import classNames from "classnames";
+import CategoryButton from "./Category/CategoryButton.astro";
+import BurgerMenu from "./BurgerMenu";
 
 export const prerender = true;
 
@@ -13,13 +15,14 @@ const { searchParams } = Astro.url;
 interface Props {
   categories?: Category[];
   menuOptions: Category[];
+  hideMenus?: boolean;
 }
 
-const { categories, menuOptions } = Astro.props;
+const { categories, menuOptions, hideMenus } = Astro.props;
 const { menu } = Astro.params;
 ---
 
-<section class="bg-secondary h-auto">
+<header class="bg-secondary h-auto" id="header-section">
   <div
     class="absolute z-20 top-4 right-4 md:top-8 md:right-8 text-primary space-x-4"
   >
@@ -42,34 +45,45 @@ const { menu } = Astro.params;
 
   <div
     class={classNames(
-      "bg-cover min-h-[70vh] flex flex-col justify-center space-y-12 background",
-      categories && categories.length > 0
-        ? "xl:min-h-[91.7dvh]"
-        : "xl:min-h-[100dvh]"
+      "bg-cover min-h-[70vh] xl:min-h-screen flex flex-col justify-center space-y-12 background overflow-x-hidden"
     )}
   >
-    <div class="flex flex-col items-center justify-center space-y-20 h-full">
-      <Image
-        src={Logo}
-        alt="logo"
-        class="scale-75 md:scale-90"
-        fetchpriority="high"
-      />
+    {
+      !hideMenus ? (
+        <div class="flex flex-col items-center justify-center space-y-20 h-full">
+          <Image
+            src={Logo}
+            alt="logo"
+            class="scale-75 md:scale-90"
+            fetchpriority="high"
+          />
 
-      <div class="flex flex-col items-center space-y-4">
-        {
-          menuOptions.map((option) => (
-            <MenuButton
-              isActive={option.slug === menu}
-              link={`/${option.slug}`}
-            >
-              {option.name}
-            </MenuButton>
-          ))
-        }
-      </div>
-    </div>
+          <div class="flex flex-col items-center space-y-4">
+            {menuOptions.map((option) => (
+              <MenuButton
+                isActive={option.slug === menu}
+                link={`/${option.slug}`}
+              >
+                {option.name}
+              </MenuButton>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div class="flex lg:justify-center py-24 px-4 lg:px-0 w-full">
+          <div class="flex lg:items-center lg:justify-center flex-wrap gap-x-4 gap-4 lg:gap-y-6 lg:w-[70%]">
+            {categories?.map((category) => (
+              <CategoryButton link={`#category-${category.id}`}>
+                {category.name}
+              </CategoryButton>
+            ))}
+          </div>
+        </div>
+      )
+    }
   </div>
-</section>
+</header>
+
+<BurgerMenu menuOptions={menuOptions} client:load />
 
 {categories && <CategoryCarousel categories={categories} />}

@@ -1,5 +1,4 @@
 ---
-import getCategories from "../api/getCategories";
 import { CategoryType, type Category } from "../types";
 
 import HeaderSection from "../components/HeaderSection.astro";
@@ -13,11 +12,12 @@ const categorySecondary = "#3F9573";
 interface Props {
   categories: Category[];
   hideCategories?: boolean;
+  hideMenus?: boolean;
 }
 
 const { menu } = Astro.params;
 
-const { categories, hideCategories } = Astro.props;
+const { categories, hideCategories, hideMenus } = Astro.props;
 
 const menus = categories.filter(
   (category) => category.category_type === CategoryType.MENU
@@ -164,6 +164,7 @@ const activeMenu =
       <HeaderSection
         categories={hideCategories ? undefined : activeMenu.subcategories}
         menuOptions={menus}
+        hideMenus={hideMenus}
       />
       <slot />
     </main>

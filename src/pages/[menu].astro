@@ -20,6 +20,6 @@ const activeMenu =
   categories.find((category) => category.slug === menu) || menus?.[0];
 ---
 
-<RootLayout categories={categories}>
+<RootLayout categories={categories} hideMenus>
   <MenuComponent categories={activeMenu.subcategories} />
 </RootLayout>
