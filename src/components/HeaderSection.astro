@@ -22,22 +22,22 @@ const { categories, menuOptions, hideMenus } = Astro.props;
 const { menu } = Astro.params;
 ---
 
-<header class="bg-secondary h-auto" id="header-section">
+<header class="bg-secondary" id="header-section">
   <div
     class="absolute z-20 top-4 right-4 md:top-8 md:right-8 text-primary space-x-4"
   >
     <a
-      href={`/${menu}?lang=ru`}
+      href={`?lang=ru`}
       class={`inline-block p-2 text-xs md:text-base border-primary rounded-lg ${searchParams.get("lang") === "ru" && "border"} ${searchParams.get("lang") === null && "border"}`}
       >RU</a
     >
     <a
-      href={`/${menu}?lang=ky`}
+      href={`?lang=ky`}
       class={`inline-block p-2 text-xs md:text-base border-primary rounded-lg ${searchParams.get("lang") === "ky" && "border"}`}
       >KY</a
     >
     <a
-      href={`/${menu}?lang=en`}
+      href={`?lang=en`}
       class={`inline-block p-2 text-xs md:text-base border-primary rounded-lg ${searchParams.get("lang") === "en" && "border"}`}
       >EN</a
     >
@@ -45,7 +45,7 @@ const { menu } = Astro.params;
 
   <div
     class={classNames(
-      "bg-cover min-h-[70vh] xl:min-h-screen flex flex-col justify-center space-y-12 background overflow-x-hidden"
+      "bg-cover min-h-screen flex flex-col justify-center space-y-12 background overflow-x-hidden"
     )}
   >
     {

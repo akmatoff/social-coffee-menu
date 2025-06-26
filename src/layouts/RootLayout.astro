@@ -81,13 +81,13 @@ const activeMenu =
   }
 
   .background-wrapper {
-    background-image: url("../assets/background-image.png");
+    background-image: url("/public/background-image.png");
     background-size: 105%;
     background-repeat: repeat-y;
   }
 
   .background {
-    background-image: url("../assets/hero-background.png");
+    background-image: url("/public/hero-background.png");
     background-repeat: no-repeat;
     background-position: center;
   }
@@ -147,12 +147,24 @@ const activeMenu =
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="preload" as="image" href="/src/assets/hero-background.png" />
-    <link rel="preload" as="image" href="/src/assets/background-image.png" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <meta name="color-scheme" content="light" />
     <meta name="description" content="Меню Social Coffee" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
+    <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta
+      name="theme-color"
+      content="#144433"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#000000"
+      media="(prefers-color-scheme: dark)"
+    />
     <title>Social Coffee</title>
   </head>
   <body>
