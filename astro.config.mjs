@@ -39,6 +39,27 @@ export default defineConfig({
               },
             },
           },
+          {
+            urlPattern: "/",
+            handler: "NetworkFirst",
+            options: { cacheName: "root-html" },
+          },
+          {
+            urlPattern: /^\/$/,
+            handler: "NetworkFirst",
+            options: {
+              cacheName: "html-cache",
+              expiration: { maxEntries: 10 },
+            },
+          },
+          {
+            urlPattern: /^\/[^\/]+$/,
+            handler: "NetworkFirst",
+            options: {
+              cacheName: "menu-html-cache",
+              expiration: { maxEntries: 20 },
+            },
+          },
         ],
       },
     }),
