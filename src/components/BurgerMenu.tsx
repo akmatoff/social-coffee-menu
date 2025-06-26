@@ -38,7 +38,7 @@ export default function BurgerMenu({ menuOptions }: Props) {
         className={classNames(
           "p-2 z-40 fixed top-0 focus:outline-none duration-300",
           isOutsideHeader
-            ? "text-secondary top-16 right-4"
+            ? "text-secondary top-24 right-4"
             : "text-primary left-0"
         )}
         aria-label="Toggle Menu"
