@@ -11,6 +11,10 @@ export default defineConfig({
     tailwind(),
     react(),
     AstroPWA({
+      devOptions: {
+        enabled: true,
+        suppressWarnings: true,
+      },
       registerType: "autoUpdate",
       includeAssets: [
         "background-image.png",
@@ -40,24 +44,10 @@ export default defineConfig({
             },
           },
           {
-            urlPattern: "/",
-            handler: "NetworkFirst",
-            options: { cacheName: "root-html" },
-          },
-          {
-            urlPattern: /^\/$/,
+            urlPattern: ({ request }) => request.mode === "navigate",
             handler: "NetworkFirst",
             options: {
-              cacheName: "html-cache",
-              expiration: { maxEntries: 10 },
-            },
-          },
-          {
-            urlPattern: /^\/[^\/]+$/,
-            handler: "NetworkFirst",
-            options: {
-              cacheName: "menu-html-cache",
-              expiration: { maxEntries: 20 },
+              cacheName: "html-pages",
             },
           },
         ],
