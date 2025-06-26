@@ -1,24 +1,53 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Category } from "../types";
+import classNames from "classnames";
 
 interface Props {
   menuOptions: Category[];
 }
 export default function BurgerMenu({ menuOptions }: Props) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isOutsideHeader, setIsOutsideHeader] = useState(false);
+
+  useEffect(() => {
+    const header = document.getElementById("header-section");
+
+    if (!header) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsOutsideHeader(!entry.isIntersecting);
+      },
+      {
+        root: null,
+        threshold: 0,
+      }
+    );
+
+    observer.observe(header);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   return (
     <>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="p-2 z-40 fixed right-4 top-28 focus:outline-none bg-white text-secondary rounded-full shadow-lg"
+        className={classNames(
+          "p-2 z-40 fixed top-0 focus:outline-none duration-300",
+          isOutsideHeader
+            ? "text-secondary top-16 right-4"
+            : "text-primary left-0"
+        )}
         aria-label="Toggle Menu"
       >
         {isOpen ? (
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="28"
-            height="28"
+            width="48"
+            height="48"
             viewBox="0 0 24 24"
           >
             <path
@@ -29,8 +58,8 @@ export default function BurgerMenu({ menuOptions }: Props) {
         ) : (
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="28"
-            height="28"
+            width="48"
+            height="48"
             viewBox="0 0 24 24"
           >
             <path

@@ -27,9 +27,9 @@ const { categories } = Astro.props;
       ))
     }
   </div>
-  <button id="scrollToTop" class="px-4 p-3 lg:p-4">
+  <!-- <button id="scrollToTop" class="px-4 p-3 lg:p-4">
     <Image src={HomeIcon} alt="icon" />
-  </button>
+  </button> -->
 </div>
 
 <script is:inline>
@@ -51,7 +51,7 @@ const { categories } = Astro.props;
   }
 </script>
 
-<script is:inline>
+<!-- <script is:inline>
   const scrollToTopButton = document.querySelector("#scrollToTop");
   scrollToTopButton?.classList.add("hidden");
 
@@ -70,7 +70,7 @@ const { categories } = Astro.props;
 
     window.location.hash = "";
   });
-</script>
+</script> -->
 
 <script is:inline>
   const categoryBar = document.getElementById("category-carousel");
