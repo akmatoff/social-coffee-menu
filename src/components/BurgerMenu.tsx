@@ -39,7 +39,7 @@ export default function BurgerMenu({ menuOptions }: Props) {
           "p-2 z-40 fixed top-0 focus:outline-none duration-300",
           isOutsideHeader
             ? "text-secondary top-24 right-4"
-            : "text-primary left-0"
+            : "text-primary left-0 top-2"
         )}
         aria-label="Toggle Menu"
       >
@@ -96,6 +96,12 @@ export default function BurgerMenu({ menuOptions }: Props) {
             </a>
           ))}
         </nav>
+
+        <img
+          src="social-coffee-logo.png"
+          alt="logo"
+          className="mt-20 scale-75 md:scale-90 mx-auto"
+        />
       </div>
     </>
   );

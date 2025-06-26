@@ -11,8 +11,8 @@ export default function MenuItemComponent({ menuItem }: Props) {
 
   return (
     <div className="space-y-4 snap-center snap-item">
-      <article className="flex flex-row items-center space-x-2 h-[85dvh] ">
-        <figure className="relative flex items-center justify-center flex-[1_1_60%] md:flex-[1_1_50%] scale-[110%] lg:scale-[116%]">
+      <article className="flex flex-col items-center space-x-2 h-[85dvh] ">
+        <figure className="relative flex flex-col items-center justify-center flex-[1_1_60%] md:flex-[1_1_50%] scale-[110%] lg:scale-[116%]">
           <img
             src={menuItem.image}
             alt={menuItem.name}
@@ -20,15 +20,15 @@ export default function MenuItemComponent({ menuItem }: Props) {
           />
         </figure>
 
-        <div className="justify-self-start flex-[1_1_40%] md:flex-[1_1_50%]">
+        <div className="self-center flex flex-col items-center flex-[1_1_40%] md:flex-[1_1_50%]">
           <h2 className="font-semibold text-[16px] md:text-[28px]">
             {menuItem.name}
           </h2>
-          <p className="text-muted text-[14px] md:text-[20px]">
+          <p className="text-muted text-[14px] md:text-[20px] text-center lg:px-20">
             {menuItem.description}
           </p>
 
-          <div className="bg-category rounded-lg h-[1px] my-2 max-w-[136px]"></div>
+          <div className="bg-category rounded-lg h-[1px] my-2 min-w-[200px] max-w-[206px]"></div>
           <p className="text-[14px] md:text-[25px] font-semibold">{price}</p>
         </div>
       </article>
