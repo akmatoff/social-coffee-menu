@@ -10,7 +10,7 @@ export default function MenuItemComponent({ menuItem }: Props) {
   const price = formatNumber(menuItem.price);
 
   return (
-    <div className="space-y-4 h-screen">
+    <div className="space-y-4 min-h-screen">
       <article className="flex flex-col items-center space-x-2 h-[85dvh] ">
         <figure className="grid place-content-end place-items-center flex-[1_1_60%] md:flex-[1_1_50%]">
           <img
