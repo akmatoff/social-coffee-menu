@@ -10,18 +10,18 @@ export default function MenuItemComponent({ menuItem }: Props) {
   const price = formatNumber(menuItem.price);
 
   return (
-    <div className="space-y-4 snap-center snap-item">
+    <div className="space-y-4 h-screen">
       <article className="flex flex-col items-center space-x-2 h-[85dvh] ">
-        <figure className="relative flex flex-col items-center justify-center flex-[1_1_60%] md:flex-[1_1_50%] scale-[110%] lg:scale-[116%]">
+        <figure className="grid place-content-end place-items-center flex-[1_1_60%] md:flex-[1_1_50%]">
           <img
             src={menuItem.image}
             alt={menuItem.name}
-            className="w-full h-auto object-cover"
+            className="w-auto h-[470px] object-contain"
           />
         </figure>
 
         <div className="self-center flex flex-col items-center flex-[1_1_40%] md:flex-[1_1_50%]">
-          <h2 className="font-semibold text-[16px] md:text-[28px]">
+          <h2 className="font-semibold text-[16px] md:text-[28px] text-center">
             {menuItem.name}
           </h2>
           <p className="text-muted text-[14px] md:text-[20px] text-center lg:px-20">
