@@ -29,8 +29,13 @@ export default function DefaultCategory({ category, lang }: Props) {
       {isLoading && <Loader />}
       <div className="grid xl:grid-cols-2 gap-6 py-8" id="items-list">
         {!isLoading &&
-          menuItems.map((item) => (
-            <MenuItemComponent key={item.id} menuItem={item} />
+          menuItems.map((item, index) => (
+            <MenuItemComponent
+              key={item.id}
+              index={index}
+              menuItem={item}
+              length={menuItems.length}
+            />
           ))}
       </div>
     </>

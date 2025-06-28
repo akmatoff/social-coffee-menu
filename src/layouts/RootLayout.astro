@@ -5,6 +5,7 @@ import HeaderSection from "../components/HeaderSection.astro";
 
 const primary = "#C2813D";
 const secondary = "#144433";
+const background = "#ffe0ba";
 const category = "#FF6868";
 const muted = "#363434";
 const categorySecondary = "#3F9573";
@@ -29,7 +30,14 @@ const activeMenu =
 
 <style
   is:global
-  define:vars={{ primary, secondary, category, muted, categorySecondary }}
+  define:vars={{
+    primary,
+    secondary,
+    category,
+    muted,
+    categorySecondary,
+    background,
+  }}
 >
   @import url(https://db.onlinewebfonts.com/c/06b73c421b7c269c7a0cb40df0daba21?family=FuturaDemiC);
 

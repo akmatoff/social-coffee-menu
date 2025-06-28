@@ -7,6 +7,7 @@ import classNames from "classnames";
 import CategoryButton from "./Category/CategoryButton.astro";
 import BurgerMenu from "./BurgerMenu";
 import Logo from "../../public/social-coffee-logo.png";
+import LogoText from "../../public/social-coffee-logo-text.png";
 
 export const prerender = true;
 
@@ -22,41 +23,48 @@ const { categories, menuOptions, hideMenus } = Astro.props;
 const { menu } = Astro.params;
 ---
 
-<header class="bg-secondary" id="header-section">
+<header class="bg-background" id="header-section">
   <div
-    class="absolute z-20 top-4 right-4 md:top-8 md:right-8 text-primary space-x-4"
+    class="absolute z-20 top-4 right-4 md:top-8 md:right-8 text-secondary space-x-4"
   >
     <a
       href={`?lang=ru`}
-      class={`inline-block p-2 text-xs md:text-base border-primary rounded-lg ${searchParams.get("lang") === "ru" && "border"} ${searchParams.get("lang") === null && "border"}`}
+      class={`inline-block p-2 text-xs md:text-base border-secondary rounded-lg ${searchParams.get("lang") === "ru" && "border"} ${searchParams.get("lang") === null && "border"}`}
       >RU</a
     >
     <a
       href={`?lang=ky`}
-      class={`inline-block p-2 text-xs md:text-base border-primary rounded-lg ${searchParams.get("lang") === "ky" && "border"}`}
+      class={`inline-block p-2 text-xs md:text-base border-secondary rounded-lg ${searchParams.get("lang") === "ky" && "border"}`}
       >KY</a
     >
     <a
       href={`?lang=en`}
-      class={`inline-block p-2 text-xs md:text-base border-primary rounded-lg ${searchParams.get("lang") === "en" && "border"}`}
+      class={`inline-block p-2 text-xs md:text-base border-secondary rounded-lg ${searchParams.get("lang") === "en" && "border"}`}
       >EN</a
     >
   </div>
 
   <div
     class={classNames(
-      "bg-cover min-h-screen flex flex-col justify-center space-y-12 background overflow-x-hidden"
+      "bg-cover min-h-screen flex flex-col justify-center space-y-12 bg-background overflow-x-hidden"
     )}
   >
     {
       !hideMenus ? (
         <div class="flex flex-col items-center justify-center space-y-20 h-full">
-          <Image
-            src={Logo}
-            alt="logo"
-            class="scale-75 md:scale-90"
-            fetchpriority="high"
-          />
+          <div class="flex flex-col items-center space-y-10">
+            <Image
+              src={Logo}
+              alt="logo"
+              class="scale-75 md:scale-90 bg-secondary rounded-full pt-[5px] px-[2px]"
+              fetchpriority="high"
+            />
+
+            <Image src={LogoText} alt="logot text" />
+            {/* <p class="text-secondary tracking-[14px] text-5xl font-light">
+              SOCIAL COFFEE
+            </p> */}
+          </div>
 
           <div class="flex flex-col items-center space-y-4">
             {menuOptions.map((option) => (
@@ -73,7 +81,10 @@ const { menu } = Astro.params;
         <div class="flex lg:justify-center py-24 px-4 lg:px-0 w-full">
           <div class="flex lg:items-center lg:justify-center flex-wrap gap-x-4 gap-4 lg:gap-y-6 lg:w-[70%]">
             {categories?.map((category) => (
-              <CategoryButton link={`#category-${category.id}`}>
+              <CategoryButton
+                link={`#category-${category.id}`}
+                className="border-secondary text-secondary"
+              >
                 {category.name}
               </CategoryButton>
             ))}

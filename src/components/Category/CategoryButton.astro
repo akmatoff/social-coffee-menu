@@ -1,14 +1,20 @@
 ---
+import classNames from "classnames";
+
 interface Props {
   link: string;
+  className?: string;
 }
 
-const { link } = Astro.props;
+const { link, className } = Astro.props;
 ---
 
 <a
   href={link}
-  class="inline-flex items-center text-center px-4 outline-none focus:outline-none bg-transparent border-2 border-white rounded-[25px] text-white text-[18px] md:text-[26px] whitespace-nowrap hover:opacity-80 duration-300"
+  class={classNames(
+    "inline-flex items-center text-center px-4 outline-none focus:outline-none bg-transparent border-2  rounded-[25px] text-[18px] md:text-[26px] whitespace-nowrap hover:opacity-80 duration-300",
+    className
+  )}
 >
   <slot />
 </a>

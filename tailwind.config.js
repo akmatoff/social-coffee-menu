@@ -9,6 +9,7 @@ export default {
         muted: "var(--muted)",
         category: "var(--category)",
         categorySecondary: "var(--categorySecondary)",
+        background: "var(--background)",
       },
     },
   },

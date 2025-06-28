@@ -39,7 +39,7 @@ export default function BurgerMenu({ menuOptions }: Props) {
           "p-2 z-40 fixed top-0 focus:outline-none duration-300",
           isOutsideHeader
             ? "text-secondary top-24 right-4"
-            : "text-primary left-0 top-2"
+            : "text-secondary left-0 top-2"
         )}
         aria-label="Toggle Menu"
       >
@@ -84,7 +84,12 @@ export default function BurgerMenu({ menuOptions }: Props) {
           isOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 ease-in-out shadow-lg`}
       >
-        <h1 className="px-6 pt-6 text-primary font-extralight">Меню</h1>
+        <h1
+          className="px-6 pt-6 text-primary font-extralight cursor-pointer"
+          onClick={() => (window.location.href = "/")}
+        >
+          Меню
+        </h1>
         <nav className="flex flex-col p-6 space-y-4">
           {menuOptions.map((option) => (
             <a
@@ -97,11 +102,16 @@ export default function BurgerMenu({ menuOptions }: Props) {
           ))}
         </nav>
 
-        <img
-          src="social-coffee-logo.png"
-          alt="logo"
-          className="mt-20 scale-75 md:scale-90 mx-auto"
-        />
+        <div className="flex flex-col items-center space-y-10">
+          <img
+            src="social-coffee-logo.png"
+            alt="logo"
+            className="mt-20 scale-75 md:scale-90 mx-auto cursor-pointer"
+            onClick={() => (window.location.href = "/")}
+          />
+
+          <img src="social-coffee-logo-text.png" alt="logo text" />
+        </div>
       </div>
     </>
   );
