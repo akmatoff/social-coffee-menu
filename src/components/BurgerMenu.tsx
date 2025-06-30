@@ -31,6 +31,10 @@ export default function BurgerMenu({ menuOptions }: Props) {
     };
   }, []);
 
+  const params = new URLSearchParams(window.location.search);
+
+  const lang = params.get("lang");
+
   return (
     <>
       <button
@@ -94,7 +98,7 @@ export default function BurgerMenu({ menuOptions }: Props) {
           {menuOptions.map((option) => (
             <a
               key={option.id}
-              href={`/${option.slug}`}
+              href={`/${option.slug}?lang=${lang}`}
               className="inline-flex items-center text-white text-2xl font-semibold hover:text-primary duration-300"
             >
               {option.name}
