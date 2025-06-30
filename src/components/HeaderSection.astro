@@ -6,8 +6,8 @@ import type { Category } from "../types";
 import classNames from "classnames";
 import CategoryButton from "./Category/CategoryButton.astro";
 import BurgerMenu from "./BurgerMenu";
-import Logo from "../../public/social-coffee-logo.png";
-import LogoText from "../../public/social-coffee-logo-text.png";
+import Logo from "../../public/social-coffee-logo.svg";
+// import LogoText from "../../public/social-coffee-logo-text.png";
 
 export const prerender = true;
 
@@ -56,14 +56,14 @@ const { menu } = Astro.params;
             <Image
               src={Logo}
               alt="logo"
-              class="scale-75 md:scale-90 bg-secondary rounded-full pt-[5px] px-[2px]"
+              class="scale-75 md:scale-90"
               fetchpriority="high"
             />
 
-            <Image src={LogoText} alt="logot text" />
-            {/* <p class="text-secondary tracking-[14px] text-5xl font-light">
+            {/* <Image src={LogoText} alt="logot text" /> */}
+            <p class="text-secondary tracking-[14px] text-5xl font-bold">
               SOCIAL COFFEE
-            </p> */}
+            </p>
           </div>
 
           <div class="flex flex-col items-center space-y-4">

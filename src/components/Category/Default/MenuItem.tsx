@@ -1,7 +1,7 @@
-import { useState } from "react";
 import type { MenuItem } from "../../../types";
 import { formatNumber } from "../../../utils";
 import classNames from "classnames";
+import Addition from "../../Addition";
 
 interface Props {
   menuItem: MenuItem;
@@ -15,7 +15,7 @@ export default function MenuItemComponent({ menuItem, length, index }: Props) {
   return (
     <div
       className={classNames(
-        "space-y-4 min-h-screen",
+        "space-y-12 min-h-screen",
         index === length - 1 &&
           length % 2 !== 0 &&
           "col-span-2 justify-self-center"
@@ -26,7 +26,7 @@ export default function MenuItemComponent({ menuItem, length, index }: Props) {
           <img
             src={menuItem.image}
             alt={menuItem.name}
-            className="w-auto h-[470px] object-contain"
+            className="w-[470px] h-[470px] object-contain"
           />
         </figure>
 
@@ -50,26 +50,7 @@ export default function MenuItemComponent({ menuItem, length, index }: Props) {
           </h2>
           <div className="space-y-1">
             {menuItem.additions.map((addition) => (
-              <div
-                key={addition.name}
-                className="flex items-center justify-between"
-              >
-                <p className="text-[16px] md:text-[25px]">{addition.name}</p>
-
-                <div className="flex items-center space-x-2">
-                  {addition.weight && (
-                    <>
-                      <span className="text-[16px] md:text-[25px]">
-                        {addition.weight}
-                      </span>
-                      <span className="block bg-category w-2 h-2 rounded-full" />
-                    </>
-                  )}
-                  <p className="text-[16px] md:text-[25px]">
-                    {formatNumber(addition.price)}
-                  </p>
-                </div>
-              </div>
+              <Addition key={addition.id} addition={addition} />
             ))}
           </div>
         </div>

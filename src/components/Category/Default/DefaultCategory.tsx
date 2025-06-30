@@ -3,6 +3,7 @@ import getMenuItems from "../../../api/getMenuItems";
 import type { Category, MenuItem } from "../../../types";
 import MenuItemComponent from "./MenuItem";
 import Loader from "../../Loader";
+import Addition from "../../Addition";
 
 interface Props {
   category: Category;
@@ -38,6 +39,19 @@ export default function DefaultCategory({ category, lang }: Props) {
             />
           ))}
       </div>
+
+      {category.additions.length > 0 && (
+        <div className="space-y-2">
+          <h2 className="font-semibold text-[16px] md:text-[25px]">
+            Дополнение
+          </h2>
+          <div className="space-y-1">
+            {category.additions.map((addition) => (
+              <Addition key={addition.id} addition={addition} />
+            ))}
+          </div>
+        </div>
+      )}
     </>
   );
 }
