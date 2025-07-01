@@ -3,6 +3,7 @@ import getMenuItems from "../../../api/getMenuItems";
 import type { Category, MenuItem } from "../../../types";
 import TextBasedMenuItem from "./TextBasedMenuItem";
 import Loader from "../../Loader";
+import { useOnScreen } from "../../../hooks/useOnScreen";
 
 interface Props {
   category: Category;
@@ -16,20 +17,27 @@ export default function TextBasedCategory({
   menu,
 }: Props) {
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasFetched, setHasFetched] = useState(false);
+  const [ref, isVisible] = useOnScreen<HTMLDivElement>({
+    rootMargin: "0px 0px -100px 0px",
+  });
 
   useEffect(() => {
-    const fetchMenu = async () => {
-      const items = await getMenuItems({ category: category.id }, lang);
-      setMenuItems(items);
-      setIsLoading(false);
-    };
-
-    fetchMenu();
-  }, [category.id, lang]);
+    if (isVisible && !hasFetched) {
+      setIsLoading(true);
+      const fetchMenu = async () => {
+        const items = await getMenuItems({ category: category.id }, lang);
+        setMenuItems(items);
+        setIsLoading(false);
+        setHasFetched(true);
+      };
+      fetchMenu();
+    }
+  }, [isVisible, hasFetched, category.id, lang]);
 
   return (
-    <div className="space-y-1">
+    <div ref={ref} className="space-y-1">
       {isLoading && <Loader />}
       {!isLoading &&
         menuItems.map((item) => (

@@ -1,7 +1,5 @@
 ---
-import { CategoryType, type Category } from "../types";
 import { pwaInfo } from "virtual:pwa-info";
-import HeaderSection from "../components/HeaderSection.astro";
 
 const primary = "#C2813D";
 const secondary = "#144433";
@@ -9,23 +7,6 @@ const background = "#ffe0ba";
 const category = "#FF6868";
 const muted = "#363434";
 const categorySecondary = "#3F9573";
-
-interface Props {
-  categories: Category[];
-  hideCategories?: boolean;
-  hideMenus?: boolean;
-}
-
-const { menu } = Astro.params;
-
-const { categories, hideCategories, hideMenus } = Astro.props;
-
-const menus = categories.filter(
-  (category) => category.category_type === CategoryType.MENU
-);
-
-const activeMenu =
-  categories.find((category) => category.slug === menu) || menus?.[0];
 ---
 
 <style
@@ -175,11 +156,6 @@ const activeMenu =
   </head>
   <body>
     <main>
-      <HeaderSection
-        categories={hideCategories ? undefined : activeMenu.subcategories}
-        menuOptions={menus}
-        hideMenus={hideMenus}
-      />
       <slot />
     </main>
   </body>

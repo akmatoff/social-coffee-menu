@@ -1,25 +1,12 @@
 ---
 import RootLayout from "../layouts/RootLayout.astro";
-import MenuComponent from "../components/Menu.astro";
-import getCategories from "../api/getCategories";
-import { CategoryType } from "../types";
+import MenuComponent from "../components/Menu";
+import HeaderSection from "../components/HeaderSection";
 
-const searchParams = Astro.url.searchParams;
-
-const language = searchParams.get("lang") || "ru";
-
-const categories = await getCategories(language);
-
-const { menu } = Astro.params;
-
-const menus = categories.filter(
-  (category) => category.category_type === CategoryType.MENU
-);
-
-const activeMenu =
-  categories.find((category) => category.slug === menu) || menus?.[0];
+export const prerender = false;
 ---
 
-<RootLayout categories={categories} hideMenus>
-  <MenuComponent categories={activeMenu.subcategories} />
+<RootLayout>
+  <HeaderSection client:only />
+  <MenuComponent client:only />
 </RootLayout>

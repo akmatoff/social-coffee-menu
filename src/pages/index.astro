@@ -1,10 +1,8 @@
 ---
-import getCategories from "../api/getCategories";
+import HeaderSection from "../components/HeaderSection";
 import RootLayout from "../layouts/RootLayout.astro";
-
-const language = Astro.url.searchParams.get("lang") || "ru";
-
-const categories = await getCategories(language).catch((e) => console.error(e));
 ---
 
-<RootLayout categories={categories ?? []} hideCategories />
+<RootLayout>
+  <HeaderSection client:only />
+</RootLayout>

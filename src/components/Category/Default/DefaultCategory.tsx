@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import getMenuItems from "../../../api/getMenuItems";
 import type { Category, MenuItem } from "../../../types";
 import MenuItemComponent from "./MenuItem";
 import Loader from "../../Loader";
 import Addition from "../../Addition";
+import { useOnScreen } from "../../../hooks/useOnScreen";
 
 interface Props {
   category: Category;
@@ -12,21 +13,30 @@ interface Props {
 
 export default function DefaultCategory({ category, lang }: Props) {
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasFetched, setHasFetched] = useState(false);
+  const [ref, isVisible] = useOnScreen<HTMLDivElement>({
+    rootMargin: "0px 0px -100px 0px",
+  });
 
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await getMenuItems({ category: category.id }, lang || "ru");
-
-      setMenuItems(data);
-      setIsLoading(false);
-    };
-
-    fetchData();
-  }, []);
+    if (isVisible && !hasFetched) {
+      setIsLoading(true);
+      const fetchData = async () => {
+        const data = await getMenuItems(
+          { category: category.id },
+          lang || "ru"
+        );
+        setMenuItems(data);
+        setIsLoading(false);
+        setHasFetched(true);
+      };
+      fetchData();
+    }
+  }, [isVisible, hasFetched, category.id, lang]);
 
   return (
-    <>
+    <div ref={ref}>
       {isLoading && <Loader />}
       <div className="grid xl:grid-cols-2 gap-6 py-8" id="items-list">
         {!isLoading &&
@@ -39,7 +49,6 @@ export default function DefaultCategory({ category, lang }: Props) {
             />
           ))}
       </div>
-
       {category.additions.length > 0 && (
         <div className="space-y-2">
           <h2 className="font-semibold text-[16px] md:text-[25px]">
@@ -52,6 +61,6 @@ export default function DefaultCategory({ category, lang }: Props) {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
