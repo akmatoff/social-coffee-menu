@@ -79,14 +79,16 @@ const { menu } = Astro.params;
         </div>
       ) : (
         <div class="flex lg:justify-center py-24 px-4 lg:px-0 w-full">
-          <div class="flex lg:items-center lg:justify-center flex-wrap gap-x-4 gap-4 lg:gap-y-6 lg:w-[70%]">
+          <div class="columns-2 gap-8 lg:w-[70%]">
             {categories?.map((category) => (
-              <CategoryButton
-                link={`#category-${category.id}`}
-                className="border-secondary text-secondary"
-              >
-                {category.name}
-              </CategoryButton>
+              <div class="break-inside-avoid mb-4">
+                <CategoryButton
+                  link={`#category-${category.id}`}
+                  className="border-secondary text-secondary"
+                >
+                  {category.name}
+                </CategoryButton>
+              </div>
             ))}
           </div>
         </div>
