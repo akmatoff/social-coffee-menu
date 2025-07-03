@@ -19,14 +19,24 @@ export default function TextBasedCategory({
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchMenu = async () => {
-      const items = await getMenuItems({ category: category.id }, lang);
-      setMenuItems(items);
-      setIsLoading(false);
+    const fetchData = async () => {
+      try {
+        const data = await getMenuItems(
+          { category: category.id },
+          lang || "ru"
+        );
+
+        setMenuItems(data);
+      } catch (error) {
+        console.error("Error fetching menu items:", error);
+        setMenuItems([]);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
-    fetchMenu();
-  }, [category.id, lang]);
+    fetchData();
+  }, []);
 
   return (
     <div className="space-y-1">

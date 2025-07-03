@@ -15,14 +15,24 @@ export default function TwoInARow({ category, lang = "ru", menu }: Props) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchItems = async () => {
-      const items = await getMenuItems({ category: category.id }, lang);
-      setMenuItems(items);
-      setIsLoading(false);
+    const fetchData = async () => {
+      try {
+        const data = await getMenuItems(
+          { category: category.id },
+          lang || "ru"
+        );
+
+        setMenuItems(data);
+      } catch (error) {
+        console.error("Error fetching menu items:", error);
+        setMenuItems([]);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
-    fetchItems();
-  }, [category.id, lang]);
+    fetchData();
+  }, []);
 
   const isOdd = menuItems.length % 2 !== 0;
   const lastIndex = menuItems.length - 1;

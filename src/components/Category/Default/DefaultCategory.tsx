@@ -16,10 +16,19 @@ export default function DefaultCategory({ category, lang }: Props) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getMenuItems({ category: category.id }, lang || "ru");
+      try {
+        const data = await getMenuItems(
+          { category: category.id },
+          lang || "ru"
+        );
 
-      setMenuItems(data);
-      setIsLoading(false);
+        setMenuItems(data);
+      } catch (error) {
+        console.error("Error fetching menu items:", error);
+        setMenuItems([]);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
     fetchData();

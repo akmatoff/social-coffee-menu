@@ -2,13 +2,20 @@
 import RootLayout from "../layouts/RootLayout.astro";
 import MenuComponent from "../components/Menu.astro";
 import getCategories from "../api/getCategories";
-import { CategoryType } from "../types";
+import { CategoryType, type Category } from "../types";
 
 const searchParams = Astro.url.searchParams;
 
 const language = searchParams.get("lang") || "ru";
 
-const categories = await getCategories(language);
+let categories: Category[] = [];
+
+try {
+  categories = await getCategories(language);
+} catch (error) {
+  console.error("Не удалось загрузить категории:", error);
+  categories = [];
+}
 
 const { menu } = Astro.params;
 
