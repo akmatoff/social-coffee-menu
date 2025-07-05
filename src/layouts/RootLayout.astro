@@ -158,7 +158,6 @@ const activeMenu =
     <meta name="generator" content={Astro.generator} />
     <meta name="color-scheme" content="light" />
     <meta name="description" content="Меню Social Coffee" />
-    <link rel="manifest" href="/manifest.webmanifest" />
     <meta
       name="theme-color"
       content="#144433"
@@ -180,5 +179,15 @@ const activeMenu =
       />
       <slot />
     </main>
+
+    <script is:inline>
+      // Register the service worker
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("/sw.js")
+          .then((reg) => console.log("service worker registered", reg))
+          .catch((err) => console.log("service worker not registered", err));
+      }
+    </script>
   </body>
 </html>

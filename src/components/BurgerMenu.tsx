@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import type { Category } from "../types";
 import classNames from "classnames";
+import HamburgerIcon from "../../public/hamburger.svg";
+import CloseIcon from "../../public/close.svg";
 
 interface Props {
   menuOptions: Category[];
