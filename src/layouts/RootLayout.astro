@@ -1,6 +1,5 @@
 ---
 import { CategoryType, type Category } from "../types";
-import { pwaInfo } from "virtual:pwa-info";
 import HeaderSection from "../components/HeaderSection.astro";
 
 const primary = "#C2813D";
@@ -170,7 +169,6 @@ const activeMenu =
       content="#000000"
       media="(prefers-color-scheme: dark)"
     />
-    {pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
     <title>Social Coffee</title>
   </head>
   <body>
