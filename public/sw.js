@@ -58,7 +58,7 @@ self.addEventListener("fetch", (event) => {
 
   if (request.mode === "navigate") {
     event.respondWith(
-      caches.match(request).then((cached) => {
+      caches.match(request.url).then((cached) => {
         return cached || fetch(request);
       })
     );
@@ -66,29 +66,26 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  if (
-    request.method === "GET" &&
-    request.url.startsWith("https://api.socialcoffee.kg")
-  ) {
+  if (request.method === "GET" && request.destination !== "document") {
     event.respondWith(
       fetch(event.request)
         .then((networkResponse) => {
           // Clone response so we can cache it
           const responseClone = networkResponse.clone();
           caches.open(API_CACHE_NAME).then((cache) => {
-            cache.put(event.request, responseClone);
+            cache.put(request, responseClone);
           });
           return networkResponse;
         })
         .catch(() => {
           // On network failure, try to serve from cache
-          return caches.match(event.request);
+          return caches.match(request.url);
         })
     );
     return; // stop here
   }
 
   event.respondWith(
-    caches.match(request).then((cached) => cached || fetch(request))
+    caches.match(request.url).then((cached) => cached || fetch(request))
   );
 });
