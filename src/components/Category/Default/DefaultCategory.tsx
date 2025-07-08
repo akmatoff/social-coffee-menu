@@ -50,7 +50,7 @@ export default function DefaultCategory({ category, lang }: Props) {
       </div>
 
       {category.additions.length > 0 && (
-        <div className="space-y-2">
+        <div className="space-y-2 -mt-20 mb-12">
           <h2 className="font-semibold text-[16px] md:text-[25px]">
             Дополнение
           </h2>

@@ -15,13 +15,13 @@ export default function MenuItemComponent({ menuItem, length, index }: Props) {
   return (
     <div
       className={classNames(
-        "space-y-12 min-h-screen",
+        "space-y-4",
         index === length - 1 &&
           length % 2 !== 0 &&
           "col-span-2 justify-self-center"
       )}
     >
-      <article className="flex flex-col items-center space-x-2 h-[85dvh]">
+      <article className="flex flex-col items-center space-x-2 h-[83dvh]">
         <figure className="grid place-content-end place-items-center flex-[1_1_60%] md:flex-[1_1_50%]">
           <img
             src={menuItem.image}
