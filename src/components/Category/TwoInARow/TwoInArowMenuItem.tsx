@@ -1,4 +1,5 @@
 import type { MenuItem } from "../../../types";
+import { forceHttps } from "../../../utils";
 import VolumeAndPrice from "../../VolumeAndPrice";
 import classNames from "classnames";
 
@@ -23,7 +24,7 @@ export default function TwoInARowMenuItem({
       )}
     >
       <img
-        src={item.image}
+        src={forceHttps(item.image)}
         alt={item.name}
         className="h-[280px] md:h-[380px] lg:h-[420px] w-auto object-contain scale-[104%]"
       />

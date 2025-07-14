@@ -23,3 +23,7 @@ export function formatNumber(price: string | number): string {
   // Normal single price
   return format(price);
 }
+
+export function forceHttps(url: string) {
+  return url.startsWith("http://") ? url.replace("http://", "https://") : url;
+}

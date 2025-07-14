@@ -1,5 +1,5 @@
 import type { MenuItem } from "../../../types";
-import { formatNumber } from "../../../utils";
+import { forceHttps, formatNumber } from "../../../utils";
 import classNames from "classnames";
 import Addition from "../../Addition";
 
@@ -24,7 +24,7 @@ export default function MenuItemComponent({ menuItem, length, index }: Props) {
       <article className="flex flex-col items-center space-x-2 h-[83dvh]">
         <figure className="grid place-content-end place-items-center flex-[1_1_60%] md:flex-[1_1_50%]">
           <img
-            src={menuItem.image}
+            src={forceHttps(menuItem.image)}
             alt={menuItem.name}
             className="w-[470px] h-[470px] object-contain"
           />
