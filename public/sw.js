@@ -90,20 +90,33 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // Network-first for API calls (assuming your API URLs include /api/)
+  // Runtime caching for API requests with Accept-Language header support
   if (request.url.includes("/api/") && request.method === "GET") {
     event.respondWith(
-      fetch(request)
-        .then((networkResponse) => {
+      (async () => {
+        const reqClone = request.clone();
+        const acceptLang = reqClone.headers.get("Accept-Language") || "ru";
+
+        const cacheKey = new Request(request.url + "::lang=" + acceptLang);
+
+        const cache = await caches.open(API_CACHE_NAME);
+        const cachedResponse = await cache.match(cacheKey);
+
+        if (cachedResponse) {
+          return cachedResponse;
+        }
+
+        try {
+          const networkResponse = await fetch(request);
           if (networkResponse.ok) {
             const responseClone = networkResponse.clone();
-            caches
-              .open(API_CACHE_NAME)
-              .then((cache) => cache.put(request, responseClone));
+            await cache.put(cacheKey, responseClone);
           }
           return networkResponse;
-        })
-        .catch(() => caches.match(request))
+        } catch (err) {
+          return cachedResponse || new Response("Offline", { status: 503 });
+        }
+      })()
     );
     return;
   }
