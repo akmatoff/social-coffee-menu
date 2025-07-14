@@ -1,6 +1,6 @@
 const CACHE_NAME = "social-coffee-v2";
 
-const API_CACHE_NAME = "api-cache";
+const API_CACHE_NAME = "api-cache-v2";
 
 const urlsToCache = [
   "/",
