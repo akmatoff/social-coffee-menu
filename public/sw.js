@@ -1,4 +1,4 @@
-const CACHE_NAME = "social-coffee-v1";
+const CACHE_NAME = "social-coffee-v2";
 
 const API_CACHE_NAME = "api-cache";
 
@@ -16,9 +16,9 @@ const urlsToCache = [
   "/bar?lang=ru",
   "/bar?lang=ky",
   "/bar?lang=en",
-  "/detskoye-menyu?lang=ru",
-  "/detskoye-menyu?lang=ky",
-  "/detskoye-menyu?lang=en",
+  "/detskoe-menyu?lang=ru",
+  "/detskoe-menyu?lang=ky",
+  "/detskoe-menyu?lang=en",
   "/background-image.png",
   "/favicon.ico",
   "/hero-background.png",
@@ -36,6 +36,7 @@ const urlsToCache = [
 ];
 
 self.addEventListener("install", (event) => {
+  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => cache.addAll(urlsToCache))
   );
@@ -51,41 +52,68 @@ self.addEventListener("activate", (event) => {
       );
     })
   );
+  self.clients.claim();
 });
 
 self.addEventListener("fetch", (event) => {
   const { request } = event;
 
+  // For navigation requests (HTML pages)
   if (request.mode === "navigate") {
     event.respondWith(
-      caches.match(request.url).then((cached) => {
-        return cached || fetch(request);
-      })
+      caches.match(request).then((cached) => cached || fetch(request))
     );
-
     return;
   }
 
-  if (request.method === "GET" && request.destination !== "document") {
+  // Cache-first for static assets and images
+  if (
+    request.destination === "image" ||
+    request.destination === "style" ||
+    request.destination === "script" ||
+    request.destination === "font"
+  ) {
     event.respondWith(
-      fetch(event.request)
-        .then((networkResponse) => {
-          // Clone response so we can cache it
-          const responseClone = networkResponse.clone();
-          caches.open(API_CACHE_NAME).then((cache) => {
-            cache.put(request, responseClone);
-          });
+      caches.match(request).then((cached) => {
+        if (cached) return cached;
+        return fetch(request).then((networkResponse) => {
+          if (networkResponse.ok) {
+            const responseClone = networkResponse.clone();
+            caches
+              .open(CACHE_NAME)
+              .then((cache) => cache.put(request, responseClone));
+          }
           return networkResponse;
-        })
-        .catch(() => {
-          // On network failure, try to serve from cache
-          return caches.match(request.url);
-        })
+        });
+      })
     );
-    return; // stop here
+    return;
   }
 
-  event.respondWith(
-    caches.match(request.url).then((cached) => cached || fetch(request))
-  );
+  // Network-first for API calls (assuming your API URLs include /api/)
+  if (request.url.includes("/api/") && request.method === "GET") {
+    event.respondWith(
+      fetch(request)
+        .then((networkResponse) => {
+          if (networkResponse.ok) {
+            const responseClone = networkResponse.clone();
+            caches
+              .open(API_CACHE_NAME)
+              .then((cache) => cache.put(request, responseClone));
+          }
+          return networkResponse;
+        })
+        .catch(() => caches.match(request))
+    );
+    return;
+  }
+
+  // Default fallback: cache-first for other GET requests (e.g. html partials, json etc)
+  if (request.method === "GET") {
+    event.respondWith(
+      caches.match(request).then((cached) => {
+        return cached || fetch(request);
+      })
+    );
+  }
 });
