@@ -86,7 +86,7 @@ export default function BurgerMenu({ menuOptions }: Props) {
       )}
 
       <div
-        className={`fixed top-0 left-0 h-full w-64 lg:w-[40%] bg-secondary z-40 transform ${
+        className={`fixed top-0 left-0 h-full w-[90vw] md:w-[60vw] xl:w-[46vw] bg-secondary z-40 transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 ease-in-out shadow-lg`}
       >

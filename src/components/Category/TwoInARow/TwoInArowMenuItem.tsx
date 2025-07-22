@@ -24,7 +24,7 @@ export default function TwoInARowMenuItem({
       )}
     >
       <img
-        src={forceHttps(item.image)}
+        src={forceHttps(item.image) || item.image}
         alt={item.name}
         className="h-[280px] md:h-[380px] lg:h-[420px] w-auto object-contain scale-[104%]"
       />
@@ -37,7 +37,9 @@ export default function TwoInARowMenuItem({
         )}
       ></div>
 
-      <p className="text-[9px] md:text-[14px]">{item.description}</p>
+      <p className="text-[9px] md:text-[14px] text-center">
+        {item.description}
+      </p>
 
       <VolumeAndPrice
         volume={item.volume}

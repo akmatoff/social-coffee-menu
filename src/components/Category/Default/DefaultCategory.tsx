@@ -35,9 +35,9 @@ export default function DefaultCategory({ category, lang }: Props) {
   }, []);
 
   return (
-    <>
+    <div className="min-h-screen">
       {isLoading && <Loader />}
-      <div className="grid xl:grid-cols-2 gap-6 py-8" id="items-list">
+      <div className="md:grid md:grid-cols-2 py-8 min-h-screen" id="items-list">
         {!isLoading &&
           menuItems.map((item, index) => (
             <MenuItemComponent
@@ -61,6 +61,6 @@ export default function DefaultCategory({ category, lang }: Props) {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }

@@ -18,12 +18,12 @@ const { menu } = Astro.params;
 const hasSubcategories = category.subcategories.length > 0;
 ---
 
-<div class="space-y-4">
+<div class="space-y-16">
   <h2 class="text-[16px] md:text-[30px] font-semibold">{category.name}</h2>
 
   {
     hasSubcategories && (
-      <div class="space-y-8">
+      <div class="space-y-16">
         {category.subcategories.map((sc) => (
           <Sub category={sc} />
         ))}
@@ -32,7 +32,7 @@ const hasSubcategories = category.subcategories.length > 0;
   }
 
   {
-    !hasSubcategories && category.category_type === CategoryType.DEFAULT && (
+    category.category_type === CategoryType.DEFAULT && (
       <DefaultCategory
         category={category}
         lang={searchParams.get("lang") || "ru"}
@@ -42,19 +42,20 @@ const hasSubcategories = category.subcategories.length > 0;
   }
 
   {
-    !hasSubcategories &&
-      category.category_type === CategoryType.TWO_IN_A_ROW && (
+    category.category_type === CategoryType.TWO_IN_A_ROW && (
+      <div class="mt-32">
         <TwoInARow
           category={category}
           menu={menu}
           lang={searchParams.get("lang") || "ru"}
           client:visible
         />
-      )
+      </div>
+    )
   }
 
   {
-    !hasSubcategories && category.category_type === CategoryType.TEXT_BASED && (
+    category.category_type === CategoryType.TEXT_BASED && (
       <TextBased
         category={category}
         lang={searchParams.get("lang") || "ru"}

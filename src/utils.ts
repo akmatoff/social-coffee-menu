@@ -25,5 +25,7 @@ export function formatNumber(price: string | number): string {
 }
 
 export function forceHttps(url: string) {
+  if (!url) return;
+
   return url.startsWith("http://") ? url.replace("http://", "https://") : url;
 }
