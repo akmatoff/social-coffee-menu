@@ -1,5 +1,4 @@
 const CACHE_NAME = "social-coffee-v2";
-
 const API_CACHE_NAME = "api-cache-v2";
 
 const urlsToCache = [
@@ -35,6 +34,7 @@ const urlsToCache = [
   "https://db.onlinewebfonts.com/t/06b73c421b7c269c7a0cb40df0daba21.svg#FuturaDemiC",
 ];
 
+// Install: cache app shell
 self.addEventListener("install", (event) => {
   self.skipWaiting();
   event.waitUntil(
@@ -42,12 +42,15 @@ self.addEventListener("install", (event) => {
   );
 });
 
+// Activate: remove old caches
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((key) => {
-          if (key !== CACHE_NAME) return caches.delete(key);
+          if (key !== CACHE_NAME && key !== API_CACHE_NAME) {
+            return caches.delete(key);
+          }
         })
       );
     })
@@ -55,18 +58,33 @@ self.addEventListener("activate", (event) => {
   self.clients.claim();
 });
 
+// Fetch handler
 self.addEventListener("fetch", (event) => {
   const { request } = event;
 
-  // For navigation requests (HTML pages)
+  // 1. Network-first for navigations (HTML pages)
   if (request.mode === "navigate") {
     event.respondWith(
-      caches.match(request).then((cached) => cached || fetch(request))
+      fetch(request)
+        .then((networkResponse) => {
+          // Update cache
+          if (networkResponse.ok) {
+            const responseClone = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(request, responseClone);
+            });
+          }
+          return networkResponse;
+        })
+        .catch(() => {
+          // Fallback if offline
+          return caches.match(request);
+        })
     );
     return;
   }
 
-  // Cache-first for static assets and images
+  // 2. Cache-first for static assets (images, styles, scripts, fonts)
   if (
     request.destination === "image" ||
     request.destination === "style" ||
@@ -79,9 +97,9 @@ self.addEventListener("fetch", (event) => {
         return fetch(request).then((networkResponse) => {
           if (networkResponse.ok) {
             const responseClone = networkResponse.clone();
-            caches
-              .open(CACHE_NAME)
-              .then((cache) => cache.put(request, responseClone));
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(request, responseClone);
+            });
           }
           return networkResponse;
         });
@@ -90,7 +108,7 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // Runtime caching for API requests with Accept-Language header support
+  // 3. Network-first for dynamic API data (GET only)
   if (request.url.includes("/api/") && request.method === "GET") {
     event.respondWith(
       (async () => {
@@ -98,13 +116,7 @@ self.addEventListener("fetch", (event) => {
         const acceptLang = reqClone.headers.get("Accept-Language") || "ru";
 
         const cacheKey = new Request(request.url + "::lang=" + acceptLang);
-
         const cache = await caches.open(API_CACHE_NAME);
-        const cachedResponse = await cache.match(cacheKey);
-
-        if (cachedResponse) {
-          return cachedResponse;
-        }
 
         try {
           const networkResponse = await fetch(request);
@@ -114,6 +126,7 @@ self.addEventListener("fetch", (event) => {
           }
           return networkResponse;
         } catch (err) {
+          const cachedResponse = await cache.match(cacheKey);
           return cachedResponse || new Response("Offline", { status: 503 });
         }
       })()
@@ -121,12 +134,20 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // Default fallback: cache-first for other GET requests (e.g. html partials, json etc)
+  // 4. Network-first fallback for everything else
   if (request.method === "GET") {
     event.respondWith(
-      caches.match(request).then((cached) => {
-        return cached || fetch(request);
-      })
+      fetch(request)
+        .then((networkResponse) => {
+          if (networkResponse.ok) {
+            const responseClone = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(request, responseClone);
+            });
+          }
+          return networkResponse;
+        })
+        .catch(() => caches.match(request))
     );
   }
 });
