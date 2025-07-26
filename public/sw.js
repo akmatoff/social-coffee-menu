@@ -1,5 +1,5 @@
-const CACHE_NAME = "social-coffee-v2";
-const API_CACHE_NAME = "api-cache-v2";
+const CACHE_NAME = "social-coffee-v3";
+const API_CACHE_NAME = "api-cache-v3";
 
 const urlsToCache = [
   "/",
@@ -34,7 +34,7 @@ const urlsToCache = [
   "https://db.onlinewebfonts.com/t/06b73c421b7c269c7a0cb40df0daba21.svg#FuturaDemiC",
 ];
 
-// Install: cache app shell
+// Install: precache known shell assets
 self.addEventListener("install", (event) => {
   self.skipWaiting();
   event.waitUntil(
@@ -42,7 +42,7 @@ self.addEventListener("install", (event) => {
   );
 });
 
-// Activate: remove old caches
+// Activate: clean up old caches
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
@@ -58,96 +58,66 @@ self.addEventListener("activate", (event) => {
   self.clients.claim();
 });
 
-// Fetch handler
+// Fetch: use stale-while-revalidate for everything
 self.addEventListener("fetch", (event) => {
   const { request } = event;
 
-  // 1. Network-first for navigations (HTML pages)
+  // HTML navigations
   if (request.mode === "navigate") {
-    event.respondWith(
-      fetch(request)
-        .then((networkResponse) => {
-          // Update cache
-          if (networkResponse.ok) {
-            const responseClone = networkResponse.clone();
-            caches.open(CACHE_NAME).then((cache) => {
-              cache.put(request, responseClone);
-            });
-          }
-          return networkResponse;
-        })
-        .catch(() => {
-          // Fallback if offline
-          return caches.match(request);
-        })
-    );
+    event.respondWith(swrStrategy(request, CACHE_NAME));
     return;
   }
 
-  // 2. Cache-first for static assets (images, styles, scripts, fonts)
+  // Static assets: images, styles, scripts, fonts
   if (
     request.destination === "image" ||
     request.destination === "style" ||
     request.destination === "script" ||
     request.destination === "font"
   ) {
-    event.respondWith(
-      caches.match(request).then((cached) => {
-        if (cached) return cached;
-        return fetch(request).then((networkResponse) => {
-          if (networkResponse.ok) {
-            const responseClone = networkResponse.clone();
-            caches.open(CACHE_NAME).then((cache) => {
-              cache.put(request, responseClone);
-            });
-          }
-          return networkResponse;
-        });
-      })
-    );
+    event.respondWith(swrStrategy(request, CACHE_NAME));
     return;
   }
 
-  // 3. Network-first for dynamic API data (GET only)
+  // API data (GET only, with language-aware key)
   if (request.url.includes("/api/") && request.method === "GET") {
     event.respondWith(
       (async () => {
         const reqClone = request.clone();
         const acceptLang = reqClone.headers.get("Accept-Language") || "ru";
-
         const cacheKey = new Request(request.url + "::lang=" + acceptLang);
-        const cache = await caches.open(API_CACHE_NAME);
-
-        try {
-          const networkResponse = await fetch(request);
-          if (networkResponse.ok) {
-            const responseClone = networkResponse.clone();
-            await cache.put(cacheKey, responseClone);
-          }
-          return networkResponse;
-        } catch (err) {
-          const cachedResponse = await cache.match(cacheKey);
-          return cachedResponse || new Response("Offline", { status: 503 });
-        }
+        return swrStrategy(cacheKey, API_CACHE_NAME, request);
       })()
     );
     return;
   }
 
-  // 4. Network-first fallback for everything else
+  // Other GET requests (HTML partials, JSON, etc.)
   if (request.method === "GET") {
-    event.respondWith(
-      fetch(request)
-        .then((networkResponse) => {
-          if (networkResponse.ok) {
-            const responseClone = networkResponse.clone();
-            caches.open(CACHE_NAME).then((cache) => {
-              cache.put(request, responseClone);
-            });
-          }
-          return networkResponse;
-        })
-        .catch(() => caches.match(request))
-    );
+    event.respondWith(swrStrategy(request, CACHE_NAME));
   }
 });
+
+// ✅ Reusable stale-while-revalidate strategy
+async function swrStrategy(cacheKey, cacheName, fallbackRequest) {
+  const cache = await caches.open(cacheName);
+  const requestToUse = fallbackRequest || cacheKey;
+
+  const cached = await cache.match(cacheKey);
+
+  // Update in background
+  fetch(requestToUse)
+    .then((networkResponse) => {
+      if (networkResponse && networkResponse.ok) {
+        cache.put(cacheKey, networkResponse.clone());
+      }
+    })
+    .catch(() => {
+      // Silently fail if offline or error
+    });
+
+  return (
+    cached ||
+    fetch(requestToUse).catch(() => new Response("Offline", { status: 503 }))
+  );
+}
