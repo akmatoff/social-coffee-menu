@@ -15,13 +15,13 @@ FROM node:22-alpine AS runtime
 WORKDIR /app
 
 ENV NODE_ENV=production
-ENV PORT=3000
+ENV PORT=3030
 ENV HOST=0.0.0.0
 
 COPY --from=base /app/dist ./dist
 COPY --from=base /app/node_modules ./node_modules
 COPY --from=base /app/package*.json ./
 
-EXPOSE 3000
+EXPOSE 3030
 
 CMD ["node", "./dist/server/entry.mjs"]
